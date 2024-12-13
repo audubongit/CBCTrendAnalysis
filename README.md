@@ -3,6 +3,6 @@ This is the official repo for the standard analysis of Audubon Christmas Bird Co
 
 Abundance indices and trends are estimated for spatial units (strata) that are intersections of provinces, states, and Bird Conservation Regions using the spatial first-difference model described in Smith et al. 2024. Abundance indices are then aggregated to larger areas and trends are estimated for provinces, states, BCRs, countries, and survey-wide. 
 
-Citations
+## Citations
 
 Smith, A.C., D. Binley, A., Daly, L., Edwards, B.P., Ethier, D., Frei, B., Iles, D., Meehan, T.D., Michel, N.L. and Smith, P.A., 2024. Spatially explicit Bayesian hierarchical models improve estimates of avian population status and trends. Ornithological Applications, 126(1), p.duad056.
