@@ -17,7 +17,7 @@ data_1 <- data_1 %>%
   #filter(scaled_effort < 10) %>% # this is to drop super high effort counts
   mutate(strata_name = paste(country,state,bcr,sep = "-")) # match BBS strata
 
-# optional removal of low abundance strata
+# optional for removal of low abundance strata
 strat_means <- data_1 %>% 
   group_by(strata_name) %>% 
   summarise(mean_obs = mean(how_many),
@@ -50,7 +50,7 @@ nonzeroweight <- as.numeric(strata_map$non_zero)
 
 
 # build neighbour relationships ------------------------------------------------
-source("functions/neighbours_define.R")
+source("functions/neighbors_define_dec_2024.R")
 neighbours <- neighbours_define(strata_map,
                   species = species,
                   strat_indicator = "strata_vec",
@@ -74,6 +74,7 @@ data_prep <- data_1 %>%
   mutate(circle_vec = as.integer(factor(circle)),
          year_vec = count_year - (min(count_year)-1))
 
+# save for later
 saveRDS(data_prep,paste0("data/data_prep_", species, ".rds"))
 # ------------------------------------------------------------------------------
 
@@ -166,8 +167,7 @@ stan_data[["nIy1"]] <- length(stan_data[["Iy1"]])
 stan_data[["Iy2"]] <- c((stan_data$fixed_year+1):stan_data$nyears)
 stan_data[["nIy2"]] <- length(stan_data[["Iy2"]])
 
-
-# Add additional effort visualisation variables
+# add additional effort vizualisation variables
 stan_data[["n_effort_preds"]] <- 100
 stan_data[["effort_preds"]] <- c(seq(from = min(stan_data$hours), 
                                      to = max(stan_data$hours),
@@ -175,12 +175,11 @@ stan_data[["effort_preds"]] <- c(seq(from = min(stan_data$hours),
 
 # get model file
 #mod.file <- "models/first_diff_spatial_CBC_nonspatial_effort.stan"
-
-mod.file <- "models/first_diff_spatial_CBC.stan"
+mod_file <- "models/first_diff_spatial_CBC.stan"
 
 # compile model
 #set_cmdstan_path(path = "D:/Users/tmeehan/Documents/.cmdstan/cmdstan-2.35.0")
-model <- cmdstan_model(mod.file, stanc_options = list("Oexperimental"))
+model <- cmdstan_model(mod_file, stanc_options = list("Oexperimental"))
 # ------------------------------------------------------------------------------
 
 
@@ -221,7 +220,6 @@ stanfit <- model$sample(
 
 # save cmdstan objects
 summ <- stanfit$summary()
-
 stanfit$save_object(paste0("output/fit_",species,"_CBC_spatial_first_diff.rds"))
 saveRDS(stan_data, paste0("output/datalist_",species,"_CBC_spatial_first_diff.rds"))
 saveRDS(summ, paste0("output/parameter_summary_",species,"_CBC_spatial_first_diff.rds"))
