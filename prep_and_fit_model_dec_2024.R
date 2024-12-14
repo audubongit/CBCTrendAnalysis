@@ -12,10 +12,10 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 species <- "Cinclus_mexicanus"
 dir("./data")
 species_f <- species
-data_1 <- read.csv(paste0("data/",species,"_modeled_records.csv"))
+data_1 <- read.csv(paste0("data/", species, "_modeled_records.csv"))
 data_1 <- data_1 %>% 
   #filter(scaled_effort < 10) %>% # this is to drop super high effort counts
-  mutate(strata_name = paste(country,state,bcr,sep = "-")) # match BBS strata
+  mutate(strata_name = paste(country, state, bcr, sep = "-")) # match BBS strata
 
 # optional for removal of low abundance strata
 strat_means <- data_1 %>% 
@@ -31,16 +31,16 @@ strat_df <- data_1 %>%
   select(strata_name,
          circles_per_stratum,nonzero_circles) %>% 
   distinct() %>% 
-    mutate(non_zero = nonzero_circles/circles_per_stratum)
+    mutate(non_zero = nonzero_circles / circles_per_stratum)
 
 strata_map <- bbsBayes2::load_map(stratify_by = "bbs_usgs") %>% 
-  inner_join(.,strat_df,
+  inner_join(., strat_df,
              by = "strata_name") %>% 
   mutate(strata_vec = as.integer(factor(strata_name))) %>% 
   arrange(strata_vec)
 
-map_view <- ggplot(strata_map)+
-  geom_sf(aes(fill = strata_vec))+
+map_view <- ggplot(strata_map) +
+  geom_sf(aes(fill = strata_vec)) +
   scale_colour_viridis_c(); map_view
 
 nstrata <- max(strata_map$strata_vec)
@@ -56,26 +56,24 @@ neighbours <- neighbours_define(strata_map,
                   strat_indicator = "strata_vec",
                   plot_dir = "",
                   plot_file = "_strata_map")
-
 N_edges <- neighbours$N_edges
 node1 <- neighbours$node1
 node2 <- neighbours$node2
 
-strata_information <- strata_map %>% 
-  sf::st_set_geometry(.,NULL)
+strata_information <- strata_map %>% sf::st_set_geometry(., NULL)
 
 # join strata back to data table and drop unnecessary columns
 data_prep <- data_1 %>% 
-  select(circle,count_year,
-         lon,lat,how_many, field_hours,
-         scaled_effort,strata_name) %>% 
+  select(circle, count_year,
+         lon, lat, how_many, field_hours,
+         scaled_effort, strata_name) %>% 
   left_join(., strata_information,
             by = c("strata_name")) %>% 
   mutate(circle_vec = as.integer(factor(circle)),
-         year_vec = count_year - (min(count_year)-1))
+         year_vec = count_year - (min(count_year) - 1))
 
 # save for later
-saveRDS(data_prep,paste0("data/data_prep_", species, ".rds"))
+saveRDS(data_prep, paste0("data/data_prep_", species, ".rds"))
 # ------------------------------------------------------------------------------
 
 
@@ -85,17 +83,15 @@ nsites <- max(data_prep$circle_vec)
 
 # list of site and strat combos
 sites_df <- data_prep %>% 
-  select(strata_vec,circle_vec) %>% 
+  select(strata_vec, circle_vec) %>% 
   distinct() %>% 
-  arrange(strata_vec,
-          circle_vec) 
+  arrange(strata_vec, circle_vec) 
 
 # number of sites in each stratum
 nsites_strata <- data_prep %>% 
-  select(strata_vec,circle_vec) %>% 
+  select(strata_vec, circle_vec) %>% 
   distinct() %>% 
-  arrange(strata_vec,
-          circle_vec) %>% 
+  arrange(strata_vec, circle_vec) %>% 
   group_by(strata_vec) %>% 
   summarise(nsites = n())
 
@@ -103,11 +99,9 @@ nsites_strata <- as.integer(nsites_strata$nsites)
 maxnsites_strata <- max(nsites_strata)
 
 # matrix of which sites are in which strata
-ste_mat <- matrix(data = 0,
-                  nrow = nstrata,
-                  ncol = maxnsites_strata)
+ste_mat <- matrix(data = 0, nrow = nstrata, ncol = maxnsites_strata)
 for(i in 1:nstrata){
-  ste_mat[i,1:nsites_strata[i]] <- sites_df[which(sites_df$strata_vec == i),
+  ste_mat[i, 1:nsites_strata[i]] <- sites_df[which(sites_df$strata_vec == i),
                                             "circle_vec"]
 }
 # ------------------------------------------------------------------------------
@@ -160,11 +154,11 @@ stan_data <- list(# scalar indicators
 stan_data[["N_edges"]] <- N_edges
 stan_data[["node1"]] <- node1
 stan_data[["node2"]] <- node2
-stan_data[["fixed_year"]] <- floor(stan_data$nyears/2)
-stan_data[["zero_betas"]] <- rep(0,stan_data$nstrata)
-stan_data[["Iy1"]] <- c((stan_data$fixed_year-1):1)
+stan_data[["fixed_year"]] <- floor(stan_data$nyears / 2)
+stan_data[["zero_betas"]] <- rep(0, stan_data$nstrata)
+stan_data[["Iy1"]] <- c((stan_data$fixed_year - 1):1)
 stan_data[["nIy1"]] <- length(stan_data[["Iy1"]])
-stan_data[["Iy2"]] <- c((stan_data$fixed_year+1):stan_data$nyears)
+stan_data[["Iy2"]] <- c((stan_data$fixed_year + 1):stan_data$nyears)
 stan_data[["nIy2"]] <- length(stan_data[["Iy2"]])
 
 # add additional effort vizualisation variables
@@ -186,30 +180,32 @@ model <- cmdstan_model(mod_file, stanc_options = list("Oexperimental"))
 
 # run stan model ---------------------------------------------------------------
 ## initial Values (not used?) 
-# init_def <- function(){ list(strata_raw = rnorm(nstrata,0,0.1),
+# init_def <- function(){ list(strata_raw = rnorm(nstrata, 0, 0.1),
 #                              STRATA = 0,
-#                              sdstrata = runif(1,0.01,0.1),
-#                              ste_raw = rnorm(nsites,0,0.1),
-#                              sdnoise = runif(1,0.01,0.2),
-#                              sdb = runif(1,0.01,0.1),
-#                              sdp = runif(1,0.01,0.1),
-#                              b_raw = rnorm(nstrata,0,0.01),
-#                              p_raw = rnorm(nstrata,0,0.01),
+#                              sdstrata = runif(1, 0.01, 0.1),
+#                              ste_raw = rnorm(nsites, 0, 0.1),
+#                              sdnoise = runif(1, 0.01, 0.2),
+#                              sdb = runif(1, 0.01, 0.1),
+#                              sdp = runif(1, 0.01, 0.1),
+#                              b_raw = rnorm(nstrata, 0, 0.01),
+#                              p_raw = rnorm(nstrata, 0, 0.01),
 #                              B = 0,
 #                              P = 0,
-#                              sdste = runif(1,0.01,0.2),
-#                              sdbeta = runif(1,0.01,0.1),
-#                              sdBETA = runif(1,0.01,0.1),
-#                              BETA_raw = rnorm(nyears-1,0,0.1),
-#                              beta_raw = matrix(rnorm((nyears-1)*nstrata,0,0.01),nrow = nstrata,ncol = nyears-1))}
+#                              sdste = runif(1, 0.01, 0.2),
+#                              sdbeta = runif(1, 0.01, 0.1),
+#                              sdBETA = runif(1, 0.01, 0.1),
+#                              BETA_raw = rnorm(nyears - 1, 0, 0.1),
+#                              beta_raw = matrix(rnorm((nyears - 1) * 
+#                                nstrata, 0, 0.01), nrow = nstrata, 
+#                                ncol = nyears - 1))}
 
 # start sampling
 stanfit <- model$sample(
-  data=stan_data,
-  refresh=200,
-  chains=4, 
-  iter_sampling=500,
-  iter_warmup=500,
+  data = stan_data,
+  refresh = 200,
+  chains = 4, 
+  iter_sampling = 500,
+  iter_warmup = 500,
   parallel_chains = 4,
   #pars = parms,
   adapt_delta = 0.8,
@@ -220,9 +216,9 @@ stanfit <- model$sample(
 
 # save cmdstan objects
 summ <- stanfit$summary()
-stanfit$save_object(paste0("output/fit_",species,"_CBC_spatial_first_diff.rds"))
-saveRDS(stan_data, paste0("output/datalist_",species,"_CBC_spatial_first_diff.rds"))
-saveRDS(summ, paste0("output/parameter_summary_",species,"_CBC_spatial_first_diff.rds"))
+stanfit$save_object(paste0("output/fit_", species, "_CBC_spatial_first_diff.rds"))
+saveRDS(stan_data, paste0("output/datalist_", species, "_CBC_spatial_first_diff.rds"))
+saveRDS(summ, paste0("output/parameter_summary_", species, "_CBC_spatial_first_diff.rds"))
 
 # stanfit$save_object(paste0("output/fit_",species,"_CBC_spatial_first_diff_nonspat_eff.rds"))
 # saveRDS(stan_data, paste0("output/datalist_",species,"_CBC_spatial_first_diff_nonspat_eff.rds"))

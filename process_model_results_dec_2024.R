@@ -2,12 +2,8 @@
 
 
 # setup ------------------------------------------------------------------------
-# library(patchwork)
 # library(posterior) # this is called in script but not loaded due to masking
-#library(bayesplot)
 library(patchwork)
-#library(geofacet)
-#library(ggrepel)
 library(ggforce)
 library(ggpattern)
 library(naturecounts)
@@ -18,7 +14,7 @@ library(tidyverse)
 
 # some some helper functions
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-source("functions/draft_functions_v2.R")
+source("functions/post_processing_functions_dec_2024.R")
 
 # settings
 species <- "American Dipper"
@@ -228,7 +224,6 @@ regs <- sort(unique(pd2$bcr))
 pgs <- 1:ceiling(length(regs) / 9)
 
 # loop through plot pages
-dev.off()
 for(pg in 1:length(pgs)){
   stt <- pg
   if(stt == 1) stt <- 1
@@ -347,7 +342,6 @@ regs <- sort(unique(pd2$prov_state))
 pgs <- 1:ceiling(length(regs) / 9)
 
 # loop through plot pages
-dev.off()
 for(pg in 1:length(pgs)){
   stt <- pg
   if(stt == 1) stt <- 1
