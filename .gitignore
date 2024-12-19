@@ -4,4 +4,4 @@
 .Ruserdata
 /output
 *.exe
-
+get_all_sites_and_species_from_database.R
