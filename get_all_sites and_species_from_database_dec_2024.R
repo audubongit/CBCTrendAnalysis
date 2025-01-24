@@ -232,7 +232,7 @@ ebird_tax <-
 spp_tab1 <- spp_tab1 %>% left_join(ebird_tax)
 
 # write out for manual tweaking
-write_csv(spp_tab1, "temporary_species_table.csv")
+write.csv(spp_tab1, "temporary_species_table.csv", na="", row.names=F)
 # ------------------------------------------------------------------------------
 
 
@@ -283,7 +283,7 @@ dat2 <- dat1 %>%
     prov_state_filter=gsub("\"", "", prov_state_filter), 
     bcr_filter=gsub("\"", "", bcr_filter)) %>% 
   mutate(historic_cbc_com_name=gsub(" OR ", ",", historic_cbc_com_name))
-write.csv(dat2, "temporary_species_table_v2.csv")
+write.csv(dat2, "temporary_species_table_v2.csv", na="", row.names=F)
 # ------------------------------------------------------------------------------
 
 
