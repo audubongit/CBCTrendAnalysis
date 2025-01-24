@@ -245,6 +245,8 @@ tst1 <- read.csv("temporary_species_table.csv")
 ost1 <- read.csv("cbc_trends_spp_list_66_to_121.csv")
 
 # clean query columns
+# in the next round, no need to do this as we won't query database for each 
+# species
 head(tst1)
 tst2 <- tst1 %>% mutate_if(grepl("q", names(tst1)), 
                    ~paste0("ref_species.com_name = ", "'", ., "'")) %>% 
@@ -267,6 +269,21 @@ tst2 <- tst1 %>% mutate_if(grepl("q", names(tst1)),
 # join and export again for more manual tweaking
 jst1 <- tst2 %>% full_join(ost1, by = join_by(ebird_spp_code))
 write_csv(jst1, "temporary_species_table_v2.csv")
+
+# 2024 only, remove ref species stuff
+dat1 <- read_csv("./data/temporary_species_table_v2.csv")
+dat2 <- dat1 %>% 
+  rename(historic_cbc_com_name=query_text,
+         prov_state_filter=state_filter) %>% 
+  mutate(historic_cbc_com_name=gsub("ref_species.com_name = ", "", 
+                                    historic_cbc_com_name)) %>% 
+  mutate(historic_cbc_com_name=gsub("\'", "", historic_cbc_com_name),
+    lon_filter=gsub("\"", "", lon_filter), 
+    lat_filter=gsub("\"", "", lat_filter), 
+    prov_state_filter=gsub("\"", "", prov_state_filter), 
+    bcr_filter=gsub("\"", "", bcr_filter)) %>% 
+  mutate(historic_cbc_com_name=gsub(" OR ", ",", historic_cbc_com_name))
+write.csv(dat2, "temporary_species_table_v2.csv")
 # ------------------------------------------------------------------------------
 
 
