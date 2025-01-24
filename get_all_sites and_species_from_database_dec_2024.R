@@ -1,3 +1,22 @@
+# this script has chunks to make three distinct types of files. first is the 
+# sample or circle file that has all the circles along with information on
+# location, strata id, and three types of effort.
+#
+# the second is a count file that has species, count and a join field that joins
+# with the sample or circle file. it has all count records of all species, and 
+# taxonomy is historic not present taxonomy.
+#
+# the third file is a taxonomic key.it maps the present taxonmic id to historic
+# ones in the cbc database.
+#
+# eventually, the taxon key is used to query the count file for all counts for
+# a species. then the species count file is joined with the sample file, and the
+# sample file is filtered based on current species geography. then stratum 
+# selection and Z proportion is calculated per stratum and some strata are 
+# removed before modeling.
+#
+# tim meehan, january 2025
+
 
 
 # setup ------------------------------------------------------------------------
@@ -18,7 +37,7 @@ getwd()
 
 
 
-# make sample file from cbc database ###########################################
+# make sample file from cbc database -------------------------------------------
 # generic query stuff
 first_count_num = 67
 last_count_num = 124
@@ -26,7 +45,9 @@ query_text = "SELECT loc_circle.abbrev,
   loc_circle.subnational_code, loc_circle.name, loc_circle.Latitude,
   loc_circle.Longitude, cnt_submission.count_yr, ref_transportation.description, 
   cnt_effort_time_distance.distance, ref_dist_unit.description, 
-  cnt_effort_time_distance.hours FROM 
+  cnt_effort_time_distance.hours,
+  cnt_effort_feeder_night.Feeder_hrs,                 
+  cnt_effort_feeder_night.Nocturnal_hrs FROM 
   cnt_submission FULL JOIN
   loc_circle ON loc_circle.circle_id = cnt_submission.circle_id FULL JOIN
   cnt_effort_time_distance ON cnt_submission.submission_id =
@@ -41,6 +62,9 @@ query_text = "SELECT loc_circle.abbrev,
 # establish a connection
 channel <- odbcConnect(dsn = "CBC database", uid = "azurecbc",
                        pwd = "bcVirtualM@chine")
+
+sqlTables(channel, tableType = "TABLE")
+res <- sqlFetch(channel, "CNT_EFFORT_FEEDER_NIGHT", max=5)
 
 # sql query database
 dat1 <- sqlQuery(channel, paste(query_text, 
@@ -57,22 +81,31 @@ dat2 <- dat1 %>%
   # remove hi
   filter(subnational_code!="US-HI") %>%
   # recode dc
-  rename(state=subnational_code) %>% 
-  mutate(state=str_trim(str_split(state, "-", simplify=T)[,2])) %>% 
-  mutate(state=ifelse(state=="DC", "MD", state)) %>% 
+  rename(prov_state=subnational_code) %>% 
+  mutate(prov_state=str_trim(str_split(prov_state, "-", simplify=T)[,2])) %>% 
+  mutate(prov_state=ifelse(prov_state=="DC", "MD", prov_state)) %>% 
+  # deal with dirty values
+  mutate(hours=ifelse(hours<=0, NA, hours),
+         Feeder_hrs=ifelse(Feeder_hrs<=0, NA, Feeder_hrs),
+         Nocturnal_hrs=ifelse(Nocturnal_hrs<=0, NA, Nocturnal_hrs)) %>% 
   # collapse by mode
-  group_by(state_province=state, circle_code=abbrev, circle_name=name, 
+  group_by(prov_state, circle_code=abbrev, circle_name=name, 
            count_number=count_yr) %>% 
   summarise(longitude=mean(Longitude, na.rm=T), latitude=mean(Latitude, na.rm=T),
-            field_party_hours=sum(hours, na.rm=T)) %>%
+            field_hours=sum(hours, na.rm=T),
+            feeder_hours=mean(Feeder_hrs, na.rm=T),
+            nocturnal_hours=mean(Nocturnal_hrs)) %>%
   ungroup() %>% 
+  # zero out nocturnal and feeder
+  mutate(feeder_hours=ifelse(is.na(feeder_hours), 0, feeder_hours),
+         nocturnal_hours=ifelse(is.na(nocturnal_hours), 0, nocturnal_hours)) %>%
   # clean up 
   mutate(count_year=count_number+1899) %>% 
-  select(1,2,3,4,8,5,6,7) %>% 
-  mutate(field_party_hours=ifelse(field_party_hours<=0, NA, 
-                                  field_party_hours)) %>% 
+  select(prov_state, circle_code, circle_name, count_number, count_year, 
+  longitude, latitude, field_hours, feeder_hours, nocturnal_hours) %>% 
+  mutate(field_hours=ifelse(field_hours<=0, NA, field_hours)) %>% 
   # remove no effort data
-  filter(!is.na(field_party_hours)) %>% 
+  filter(!is.na(field_hours)) %>% 
   mutate(join_code=paste(circle_code, count_year, sep="-")) %>% 
   arrange(circle_code, count_number)
 
@@ -80,12 +113,30 @@ dat2 <- dat1 %>%
 getwd()
 write.csv(dat2, "cbc_sample_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv", 
           na="", row.names=F)
-#-------------------------------------------------------------------------------
+
+# assign analytical strata to sample file 
+map1 <- bbsBayes2::load_map("bbs_cws")
+plot(map1$geom, col="red")
+
+# samples
+samps0 <- read_csv("cbc_sample_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv") 
+samps1 <- samps0 %>% st_as_sf(coords = c("longitude", "latitude"), 
+                              remove = F, crs=4326) %>% 
+  st_transform(crs=st_crs(map1))
+
+# spatial join
+samps2 <- samps1 %>% select(-prov_state) %>% st_join(map1) %>% 
+  select(-bcr_by_country) %>% st_drop_geometry()
+
+# save as circle file
+write.csv(samps2, "temporary_circle_table_v2.csv", na="", row.names=F)
+# ------------------------------------------------------------------------------
 
 
 
 
-# make count data file from  cbc database ######################################
+
+# make count data file from cbc database --------------------------------------
 # generic query stuff
 query_text = "SELECT loc_circle.abbrev,
   loc_circle.subnational_code, loc_circle.name, loc_circle.Latitude,
@@ -147,9 +198,15 @@ dat3 <- dat2 %>%
   select(5,6,8) %>% 
   arrange(join_code, common_name)
 
+# save
 write.csv(dat3, "cbc_count_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv", 
           na="", row.names=F)
-#-------------------------------------------------------------------------------
+
+# final count data manipulation
+dat4 <- read.csv("cbc_count_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv")
+write.csv(dat4, "temporary_count_table_v2.csv", na="", row.names=F)
+# ------------------------------------------------------------------------------
+
 
 
 
@@ -163,22 +220,21 @@ spp_tab1 <- cnts1 %>% arrange(common_name, number_counted) %>%
   filter(!grepl("NA", common_name, fixed=T)) %>% 
   filter(!is.na(common_name)) %>% 
   group_by(common_name) %>% summarise(total_counted=sum(number_counted))
+
+# current ebird taxonomy
 ebird_tax <- 
   read_csv("eBird-Clements-v2024-integrated-checklist-October-2024-rev.csv") %>% 
   rename_with(., ~tolower(gsub(" ", "_", .x, fixed = TRUE))) %>% 
   select(species_code, common_name=english_name, scientific_name) %>% 
   arrange(common_name)
 
+# initial taxon join
 spp_tab1 <- spp_tab1 %>% left_join(ebird_tax)
 
+# write out for manual tweaking
 write_csv(spp_tab1, "temporary_species_table.csv")
 # ------------------------------------------------------------------------------
 
-
-
-
-# modify manually in excel -----------------------------------------------------
-# ------------------------------------------------------------------------------
 
 
 
@@ -208,41 +264,10 @@ tst2 <- tst1 %>% mutate_if(grepl("q", names(tst1)),
                remove=T, na.rm=T) %>% 
   mutate(q0=str_trim(q0))
 
-# join and export again for manual tweaking
+# join and export again for more manual tweaking
 jst1 <- tst2 %>% full_join(ost1, by = join_by(ebird_spp_code))
 write_csv(jst1, "temporary_species_table_v2.csv")
 # ------------------------------------------------------------------------------
-
-
-
-
-# import bcr and sample files --------------------------------------------------
-# bcrs
-library(sf)
-
-map1 <- bbsBayes2::load_map("bbs_cws")
-plot(map1$geom, col="red")
-
-# samples
-samps0 <- read_csv("cbc_sample_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv") 
-
-samps1 <- samps0 %>% 
-  group_by(state_province, circle_code, circle_name, count_number,
-           count_year,longitude,latitude,field_party_hours,join_code)
-
-
-
-
-
-
-
-
-
-
-# ------------------------------------------------------------------------------
-
-
-
 
 
 
