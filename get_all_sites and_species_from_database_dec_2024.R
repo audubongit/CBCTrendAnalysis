@@ -135,16 +135,6 @@ write.csv(samps2, "temporary_circle_table_v2.csv", na="", row.names=F)
 
 
 
-# some of the cbc sites need closest bcr ---------------------------------------
-
-
-
-
-
-# ------------------------------------------------------------------------------
-
-
-
 # make count data file from cbc database ---------------------------------------
 # generic query stuff
 query_text = "SELECT loc_circle.abbrev,
@@ -219,7 +209,6 @@ write.csv(dat4, "temporary_count_table_v2.csv", na="", row.names=F)
 
 
 
-
 # make taxon map ---------------------------------------------------------------
 # counts
 cnts1 <- read_csv("cbc_count_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv")
@@ -243,7 +232,6 @@ spp_tab1 <- spp_tab1 %>% left_join(ebird_tax)
 # write out for manual tweaking
 write.csv(spp_tab1, "temporary_species_table.csv", na="", row.names=F)
 # ------------------------------------------------------------------------------
-
 
 
 
