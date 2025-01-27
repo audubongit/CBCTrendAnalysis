@@ -116,7 +116,6 @@ write.csv(dat2, "cbc_sample_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv",
 
 # assign analytical strata to sample file 
 map1 <- bbsBayes2::load_map("bbs_cws")
-plot(map1$geom, col="red")
 
 # samples
 samps0 <- read_csv("cbc_sample_data_Dec_1966_to_Jan_2024_cont_USA_CAN.csv") 
@@ -125,7 +124,8 @@ samps1 <- samps0 %>% st_as_sf(coords = c("longitude", "latitude"),
   st_transform(crs=st_crs(map1))
 
 # spatial join
-samps2 <- samps1 %>% select(-prov_state) %>% st_join(map1) %>% 
+samps2 <- samps1 %>% select(-prov_state) %>% 
+  st_join(map1, join=st_nearest_feature) %>% 
   select(-bcr_by_country) %>% st_drop_geometry()
 
 # save as circle file
