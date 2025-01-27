@@ -135,8 +135,17 @@ write.csv(samps2, "temporary_circle_table_v2.csv", na="", row.names=F)
 
 
 
+# some of the cbc sites need closest bcr ---------------------------------------
 
-# make count data file from cbc database --------------------------------------
+
+
+
+
+# ------------------------------------------------------------------------------
+
+
+
+# make count data file from cbc database ---------------------------------------
 # generic query stuff
 query_text = "SELECT loc_circle.abbrev,
   loc_circle.subnational_code, loc_circle.name, loc_circle.Latitude,
