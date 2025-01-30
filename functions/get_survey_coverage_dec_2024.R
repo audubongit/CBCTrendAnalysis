@@ -10,20 +10,19 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 
 # set parameters ---------------------------------------------------------------
-species <- "American Dipper"
+species <- "Snowy Owl"
 # ------------------------------------------------------------------------------
 
 
 
 # get species range map and survey sites ---------------------------------------
-range_info <- grid_range(species, seasonal_range = "resident")
+range_info <- grid_range(species, seasonal_range = "nonbreeding")
 
 # add study sites
 survey_sites <- read.csv(list.files(path = "./data", 
-                                    pattern = "*all_records*", 
+                                    pattern = "*filtered_modeling_data*", 
                                     full.names = T)) %>% 
-  select(circle, lon, lat, count_year, how_many) %>% 
-  filter(how_many>0) %>% 
+  select(circle_code, longitude, latitude, count_year, number_counted) %>% 
   distinct()
 # ------------------------------------------------------------------------------
 
@@ -32,10 +31,10 @@ survey_sites <- read.csv(list.files(path = "./data",
 # extract and save total coverage ----------------------------------------------
 spp_coverage <- overlay_range_data(range = range_info,
                                    survey_sites = survey_sites,
-                                   sites = "circle",
+                                   sites = "circle_code",
                                    years = "count_year",
-                                   x_coord = "lon",
-                                   y_coord = "lat",
+                                   x_coord = "longitude",
+                                   y_coord = "latitude",
                                    crs_site_coordinates = 4326,
                                    add_survey_sites_to_range = TRUE)
 overall_coverage_estimate <- spp_coverage$cumulative_coverage_estimate

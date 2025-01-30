@@ -17,7 +17,7 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
                               strat_indicator = "strat",
                               island_link_dist_factor = 1.2 #consider nearest strata neighbours if distances are within this factor of each other, when linking otherwise isolated islands of strata
                               
-                              ){
+){
   
   require(spdep)
   require(sf)
@@ -77,14 +77,14 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       summarise(.groups = "keep") %>% 
       mutate(check = ifelse(strat_lab == strat_lab_fill,FALSE,TRUE))
     
-  strat_check <- filling_strata_map %>% 
-    select(strat_lab,strat_lab_fill) %>% 
-    filter(!is.na(strat_lab)) %>% 
-    mutate(check = ifelse(strat_lab == strat_lab_fill,FALSE,TRUE))
-  
-  if(any(strat_check$check)){stop("strata indices do not match")}
-  
-  working_strata_map <- filling_strata_map
+    strat_check <- filling_strata_map %>% 
+      select(strat_lab,strat_lab_fill) %>% 
+      filter(!is.na(strat_lab)) %>% 
+      mutate(check = ifelse(strat_lab == strat_lab_fill,FALSE,TRUE))
+    
+    if(any(strat_check$check)){stop("strata indices do not match")}
+    
+    working_strata_map <- filling_strata_map
   }
   
   centres <- suppressWarnings(st_centroid(working_strata_map))
@@ -106,62 +106,62 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       if(min(nb_info$num) == 0){
         nn_fill <- TRUE
         message("Some strata have no neighbours, filling by 2 nearest neighbours by centroids")
-
-
+        
+        
         nn = knearneigh(centres, k=2)
-
+        
         w_rep = which(nb_info$num == 0)
-
+        
         for(i in w_rep){
           wm <- nn[[1]][i,c(1,2)]
           
-      for(jjt in c(1,2)){
-          wwm <- wm[jjt]
-          
-          nb_db[[i]] <- as.integer(unique(c(nb_db[[i]],wwm)))
-          if(nb_db[[i]][1] == 0){nb_db[[i]] <- nb_db[[i]][-1]}
-          nb_db[[wwm]] <- as.integer(unique(c(nb_db[[wwm]],i)))
-          if(nb_db[[wwm]][1] == 0){nb_db[[wwm]] <- nb_db[[wwm]][-1]}
+          for(jjt in c(1,2)){
+            wwm <- wm[jjt]
+            
+            nb_db[[i]] <- as.integer(unique(c(nb_db[[i]],wwm)))
+            if(nb_db[[i]][1] == 0){nb_db[[i]] <- nb_db[[i]][-1]}
+            nb_db[[wwm]] <- as.integer(unique(c(nb_db[[wwm]],i)))
+            if(nb_db[[wwm]][1] == 0){nb_db[[wwm]] <- nb_db[[wwm]][-1]}
           }
-
+          
         }
       }
       
-        distnc <- st_distance(centres)
+      distnc <- st_distance(centres)
+      n_islands <- n.comp.nb(nb_db)$nc
+      while(n_islands > 1){
+        message(paste(n_islands-1,"groups of nodes are isolated, linking by distance between centroids"))
+        
+        isls <- n.comp.nb(nb_db)
+        
+        
+        ww1 <- which(isls$comp.id == 1)
+        tmp <- distnc[ww1,-c(ww1)]
+        
+        clstn <- apply(tmp,1,min)
+        clst <- as.numeric(clstn) #minimum values in each row (for each of the sites in ww1)
+        wwcl <- (names(which.min(clstn))) #which row includes the minumum values (which site is closest)
+        ww2 <- which(as.numeric(distnc[wwcl,]) == clstn[wwcl] |
+                       (as.numeric(distnc[wwcl,]) > clstn[wwcl] &
+                          as.numeric(distnc[wwcl,]) < clstn[wwcl]*island_link_dist_factor))
+        
+        if(any(ww1 %in% ww2)){ww2 <- ww2[-which(ww2 %in% ww1)]}
+        #ww2 are the strata that should be linked to the isolated group
+        for(i in ww2){
+          
+          nb_db[[i]] <- unique(c(nb_db[[i]],as.integer(wwcl)))
+          nb_db[[as.integer(wwcl)]] <- unique(c(nb_db[[as.integer(wwcl)]],i))
+          
+          
+        }
+        
         n_islands <- n.comp.nb(nb_db)$nc
-        while(n_islands > 1){
-          message(paste(n_islands-1,"groups of nodes are isolated, linking by distance between centroids"))
-          
-          isls <- n.comp.nb(nb_db)
-          
-         
-            ww1 <- which(isls$comp.id == 1)
-            tmp <- distnc[ww1,-c(ww1)]
-            
-              clstn <- apply(tmp,1,min)
-              clst <- as.numeric(clstn) #minimum values in each row (for each of the sites in ww1)
-              wwcl <- (names(which.min(clstn))) #which row includes the minumum values (which site is closest)
-              ww2 <- which(as.numeric(distnc[wwcl,]) == clstn[wwcl] |
-                             (as.numeric(distnc[wwcl,]) > clstn[wwcl] &
-                                as.numeric(distnc[wwcl,]) < clstn[wwcl]*island_link_dist_factor))
-            
-              if(any(ww1 %in% ww2)){ww2 <- ww2[-which(ww2 %in% ww1)]}
-            #ww2 are the strata that should be linked to the isolated group
-            for(i in ww2){
-              
-              nb_db[[i]] <- unique(c(nb_db[[i]],as.integer(wwcl)))
-              nb_db[[as.integer(wwcl)]] <- unique(c(nb_db[[as.integer(wwcl)]],i))
-              
-              
-            }
-            
-            n_islands <- n.comp.nb(nb_db)$nc
-            
-            }
-          
         
-        
-        
+      }
+      
+      
+      
+      
       nb_info = spdep::nb2WB(nb_db)
       
       
@@ -175,9 +175,9 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       yb = range(st_coordinates(box)[,"Y"])
       
       
-     
-        
-  }else{
+      
+      
+    }else{
       voronoi <- TRUE
     }
     
@@ -189,26 +189,26 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       centres = working_strata_map
       coords = st_coordinates(centres)
     }else{
-    centres = suppressWarnings(st_centroid(working_strata_map))
-    coords = st_coordinates(centres)
+      centres = suppressWarnings(st_centroid(working_strata_map))
+      coords = st_coordinates(centres)
     }
     
     if(convex_hull){
-    cov_hull <- st_convex_hull(st_union(centres))
-    cov_hull_buf = st_buffer(cov_hull,dist = strat_link_fill) #buffering the realised strata by (strat_link_fill/1000)km
+      cov_hull <- st_convex_hull(st_union(centres))
+      cov_hull_buf = st_buffer(cov_hull,dist = strat_link_fill) #buffering the realised strata by (strat_link_fill/1000)km
     }
     if(buffer){
-    cov_hull_buf = st_buffer(st_union(centres),dist = strat_link_fill)
-    if(length(cov_hull_buf[[1]]) > 1){ ### gradually increases buffer until all sites are linked
-      while(length(cov_hull_buf[[1]]) > 1){
-        strat_link_fill <- strat_link_fill*1.1
-        cov_hull_buf = st_buffer(st_union(centres),dist = strat_link_fill)
+      cov_hull_buf = st_buffer(st_union(centres),dist = strat_link_fill)
+      if(length(cov_hull_buf[[1]]) > 1){ ### gradually increases buffer until all sites are linked
+        while(length(cov_hull_buf[[1]]) > 1){
+          strat_link_fill <- strat_link_fill*1.1
+          cov_hull_buf = st_buffer(st_union(centres),dist = strat_link_fill)
+        }
       }
-    }
     }
     # Voronoi polygons from centres -----------------------------------
     box <- st_as_sfc(st_bbox(centres))
-
+    
     xb <- range(st_coordinates(box)[,"X"])
     yb <- range(st_coordinates(box)[,"Y"])
     
@@ -220,9 +220,9 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
     
     nb_db <- spdep::poly2nb(vintj,row.names = vintj$strat_lab,queen = FALSE)#polygon to neighbour definition
     nb_mat <- spdep::nb2mat(nb_db, style = "B",
-                           zero.policy = TRUE) #binary adjacency matrix
+                            zero.policy = TRUE) #binary adjacency matrix
     
-  
+    
     nb_info = spdep::nb2WB(nb_db)
     
     if(min(nb_info$num) == 0){stop("ERROR some strata have no neighbours")}
@@ -266,7 +266,7 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       ggp <- ggp +
         geom_sf(data = add_map,alpha = 0,colour = grey(0.9))
     }
-  
+    
     ggp <- ggp + 
       geom_segment(data=DA,aes(x = long, y = lat,xend=long_to,yend=lat_to),
                    inherit.aes = FALSE,line_width=0.3,alpha=0.4) +
@@ -274,13 +274,13 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       geom_sf(data = working_strata_map,alpha = 0,colour = grey(0.85))+
       geom_sf_text(aes(label = strat_lab),size = 5,alpha = 0.7,colour = "black")+
       labs(title = species)+
-        theme_minimal() +
-        coord_sf(xlim = xb,ylim = yb)+
-        theme(legend.position = "none")
+      theme_minimal() +
+      coord_sf(xlim = xb,ylim = yb)+
+      theme(legend.position = "none")
     
-  
     
-      pdf(file = plot_file_name,
+    
+    pdf(file = plot_file_name,
         width = 11,
         height = 8.5)
     #plot(nb_db,centres,col = "pink")

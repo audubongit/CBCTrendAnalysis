@@ -17,9 +17,9 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 source("functions/post_processing_functions_dec_2024.R")
 
 # settings
-species <- "American Dipper"
-species_l <- "Cinclus_mexicanus"
-stratification <- "bbs_usgs"
+species <- "Snowy Owl"
+species_l <- gsub(" ", "_", species)
+stratification <- "bbs_cws"
 # ------------------------------------------------------------------------------
 
 
@@ -47,7 +47,7 @@ yrs <- data_prep %>%
   distinct()
 
 # make a stratum map
-strata_map <- bbsBayes2::load_map(stratify_by = "bbs_usgs") %>% 
+strata_map <- bbsBayes2::load_map(stratify_by = stratification) %>% 
   select(-area_sq_km) %>% 
   inner_join(.,strat_df,
              by = "strata_name") %>% 
@@ -63,9 +63,9 @@ gen_years <- nc_query_table(table="SpeciesLifeHistory") %>%
 gen_3_years <- round(gen_years * 3)
 
 # start year for indices
-year_1 <- 1966 # first year
+year_1 <- min(data_prep$count_year) # first year
 year_exp <- 1993 # year when expanded BBS analyses started
-year_N <- 2019 # last year
+year_N <- max(data_prep$count_year) # last year
 year_10 <- year_N - 10 # includes eleven years data, i.e. inclusive
 year_3g <- year_N - gen_3_years
 pif_quant <- c(0.025, 0.05, 0.165, 0.5, 0.835, 0.95, 0.975)
@@ -776,7 +776,7 @@ agg_trends <- rbind(cont_lt_trds, cont_exp_trds, cont_10yr_trds, cont_3gen_trds,
   select(species, region = strata_name, region_type,
          trend_type, length_3_gens=gen_3_years, 
          year_start = start_year, year_end = end_year,
-         trend_mean = trend, trend_median = q0.05, 
+         trend_mean = trend, trend_median = q0.5, 
          trend_q0.025 = lci, trend_q0.975 = uci, 
          trend_diff_zero_95 = sig, 
          trend_q0.05 = q0.05, trend_q0.95 = q0.95, 
