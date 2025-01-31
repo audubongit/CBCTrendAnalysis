@@ -11,10 +11,30 @@ library(tidyverse)
 code_dir <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
 results_dir <- "C:/Users/tmeehan/Desktop/test_results"
 
-# set some analysis settings
+# set some stratum selection settings
 number_years_per_circle_threshold <- 5 # minimum
 nonzero_circles_threshold <- 3 # minimum
 stratification1 <- "bbs_cws"
+
+# set some stand model settings for testing
+refresh1 <- 2
+chains1 <- 4
+iter_sampling1 <- 10
+iter_warmup1 <- 10
+parallel_chains1 <- 4
+adapt_delta1 <- 0.8
+max_treedepth1 <- 11
+init1 <- 1
+
+# set some stand model settings for actual analysis
+refresh1 <- 200
+chains1 <- 4 
+iter_sampling1 <- 1000
+iter_warmup1 <- 1000
+parallel_chains1 <- 4
+adapt_delta1 <- 0.8
+max_treedepth1 <- 11
+init1 <- 1
 
 # input three major tables
 setwd(code_dir)
@@ -55,7 +75,7 @@ s <- 1
   bcr_filter_s <- bcr_filters[s]
   add_nocturnal_s <- add_nocturnals[s]
   add_feeder_s <- add_feeders[s]
-  survey_reliability_s <- survey_suitabilities[s]
+  survey_suitability_s <- survey_suitabilities[s]
   
   # define output location
   dir_out1 <- file.path(results_dir, gsub(" ", "_", ebird_com_name_s))
@@ -65,9 +85,23 @@ s <- 1
   source("functions/get_and_filter_count_data_dec_2024.R")
   get_and_filter_count_data()
   
-  # set up and run model
-  source("functions/prep_and_fit_model_dec_2024.R")
+  # get coverage
+  source("functions/get_survey_coverage_dec_2024.R")
+  get_survey_coverage()
   
+  # set up and run model
+  source("functions/neighbors_define_dec_2024.R")
+  source("functions/prep_and_fit_model_dec_2024.R")
+  prep_and_fit_model()
+  
+  # process model results
+  source("functions/post_processing_functions_dec_2024.R")
+  source("functions/process_model_results_dec_2024.R")
+  process_model_results()
+  
+  # add quality info
+  source("functions/add_estimate_quality_dec_2024.R")
+  add_estimate_quality()
   
 #}
 

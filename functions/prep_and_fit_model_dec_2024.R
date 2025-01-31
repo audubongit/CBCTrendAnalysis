@@ -9,7 +9,6 @@ prep_and_fit_model <- function(){
   require(bbsBayes2)
   require(tidyverse)
   
-  
   # select species and load data
   species <- species_f <- ebird_com_name_s
   data_1 <- read.csv(file.path(results_dir, gsub(" ", "_", ebird_com_name_s),
@@ -32,11 +31,10 @@ prep_and_fit_model <- function(){
   nonzeroweight <- as.numeric(strata_map$non_zero)
   
   # build neighbor relationships
-  source("functions/neighbors_define_dec_2024.R")
   neighbours <- neighbours_define(strata_map,
                                   species = species,
                                   strat_indicator = "strata_vec",
-                                  plot_dir = dir_out1,
+                                  plot_dir = paste0(dir_out1, "/"),
                                   plot_file = "_strata_map")
   N_edges <- neighbours$N_edges
   node1 <- neighbours$node1
@@ -55,12 +53,12 @@ prep_and_fit_model <- function(){
            year_vec = count_year - (min(count_year) - 1))
   
   # save for later
-  saveRDS(data_prep, paste0("data/data_prep_", gsub(" ", "_", species), ".rds"))
-  # ------------------------------------------------------------------------------
+  saveRDS(data_prep, file.path(dir_out1, paste0("data_prep_", 
+                                                gsub(" ", "_", species), ".rds")))
+  # ----------------------------------------------------------------------------
   
-  
-  
-  # circle per strata work -------------------------------------------------------
+
+  # circle per strata work -----------------------------------------------------
   nsites <- max(data_prep$circle_vec)
   
   # list of site and strat combos
@@ -76,7 +74,6 @@ prep_and_fit_model <- function(){
     arrange(strata_vec, circle_vec) %>% 
     group_by(strata_vec) %>% 
     summarise(nsites = n())
-  
   nsites_strata <- as.integer(nsites_strata$nsites)
   maxnsites_strata <- max(nsites_strata)
   
@@ -86,11 +83,10 @@ prep_and_fit_model <- function(){
     ste_mat[i, 1:nsites_strata[i]] <- sites_df[which(sites_df$strata_vec == i),
                                                "circle_vec"]
   }
-  # ------------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
   
   
-  
-  # data list for stan -----------------------------------------------------------
+  # data list for stan ---------------------------------------------------------
   ncounts <- nrow(data_prep)
   nyears <- max(data_prep$year_vec)
   count <- data_prep$number_counted
@@ -128,11 +124,10 @@ prep_and_fit_model <- function(){
     # weights
     nonzeroweight = nonzeroweight
   )
-  # ------------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
   
   
-  
-  # set up spatial first difference model ----------------------------------------
+  # set up spatial first difference model --------------------------------------
   stan_data[["N_edges"]] <- N_edges
   stan_data[["node1"]] <- node1
   stan_data[["node2"]] <- node2
@@ -156,11 +151,10 @@ prep_and_fit_model <- function(){
   # compile model
   #set_cmdstan_path(path = "D:/Users/tmeehan/Documents/.cmdstan/cmdstan-2.35.0")
   model <- cmdstan_model(mod_file, stanc_options = list("Oexperimental"))
-  # ------------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
   
   
-  
-  # run stan model ---------------------------------------------------------------
+  # run stan model -------------------------------------------------------------
   ## initial Values (not used?) 
   # init_def <- function(){ list(strata_raw = rnorm(nstrata, 0, 0.1),
   #                              STRATA = 0,
@@ -184,36 +178,33 @@ prep_and_fit_model <- function(){
   # start sampling
   stanfit <- model$sample(
     data = stan_data,
-    refresh = 200,
-    chains = 4, 
-    iter_sampling = 1000,
-    iter_warmup = 1000,
-    parallel_chains = 4,
-    #pars = parms,
-    adapt_delta = 0.8,
-    max_treedepth = 11,
-    #seed = 123,
-    init = 1,
+    refresh = refresh1,
+    chains = chains1, 
+    iter_sampling = iter_sampling1,
+    iter_warmup = iter_warmup1,
+    parallel_chains = parallel_chains1,
+    # pars = parms,
+    adapt_delta = adapt_delta1,
+    max_treedepth = max_treedepth1,
+    # seed = 123,
+    init = init1,
     show_exceptions = FALSE)
-  
   
   # save cmdstan objects
   summ <- stanfit$summary()
-  stanfit$save_object(paste0("output/fit_", gsub(" ", "_", species), "_CBC_spatial_first_diff.rds"))
-  saveRDS(stan_data, paste0("output/datalist_", gsub(" ", "_", species), "_CBC_spatial_first_diff.rds"))
-  saveRDS(summ, paste0("output/parameter_summary_", gsub(" ", "_", species), "_CBC_spatial_first_diff.rds"))
-  
-  # stanfit$save_object(paste0("output/fit_",species,"_CBC_spatial_first_diff_nonspat_eff.rds"))
-  # saveRDS(stan_data, paste0("output/datalist_",species,"_CBC_spatial_first_diff_nonspat_eff.rds"))
-  # saveRDS(summ, paste0("output/parameter_summary_",species,"_CBC_spatial_first_diff_nonspat_eff.rds"))
-  # ------------------------------------------------------------------------------
-  
-  
-  
-  
-  
-  
-  
-}
+  stanfit$save_object(file.path(dir_out1, 
+                                paste0("fit_", gsub(" ", "_", species), 
+                                       "_CBC_spatial_first_diff.rds")))
+  saveRDS(stan_data, file.path(dir_out1, paste0("datalist_", 
+                                                gsub(" ", "_", species), 
+                                                "_CBC_spatial_first_diff.rds")))
+  saveRDS(summ, file.path(dir_out1, paste0("parameter_summary_", 
+                                           gsub(" ", "_", species), 
+                                           "_CBC_spatial_first_diff.rds")))
+  # ----------------------------------------------------------------------------
 
-  
+} # end function
+
+
+# test function
+# prep_and_fit_model()

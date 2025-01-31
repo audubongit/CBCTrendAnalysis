@@ -1,6 +1,7 @@
+
+
+
 # voronoi polygon neighbourhood function ----------------------------------
-
-
 neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of strata
                               filled_strata_map = NULL, #sf map of strata including all stata with no data
                               strat_link_fill = 10000, #distance to fill if strata are not connected
@@ -62,7 +63,6 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
     cent1 <- st_centroid(real_strata_map)
     cov_hull_fill <- concaveman::concaveman(cent1)
     
-    
     #cov_hull_fill <- st_as_sf(st_convex_hull(st_union(real_strata_map)))
     
     #spatial join to link intervening strata and retain the strata ordering of the realised strata
@@ -91,7 +91,6 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
   
   coords = st_coordinates(centres)
   
-  
   if(voronoi == FALSE){
     #check if input layer is polygon, if not set voronoi to TRUE
     if(any(grepl("POLYGON",class(working_strata_map$geom[[1]])))){
@@ -106,7 +105,6 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       if(min(nb_info$num) == 0){
         nn_fill <- TRUE
         message("Some strata have no neighbours, filling by 2 nearest neighbours by centroids")
-        
         
         nn = knearneigh(centres, k=2)
         
@@ -134,7 +132,6 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
         
         isls <- n.comp.nb(nb_db)
         
-        
         ww1 <- which(isls$comp.id == 1)
         tmp <- distnc[ww1,-c(ww1)]
         
@@ -159,13 +156,10 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
         
       }
       
-      
-      
-      
+
       nb_info = spdep::nb2WB(nb_db)
       
-      
-      
+
       nb_mat = spdep::nb2mat(nb_db, style = "B",
                              zero.policy = TRUE) #binary adjacency matrix
       
@@ -174,9 +168,7 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       xb = range(st_coordinates(box)[,"X"])
       yb = range(st_coordinates(box)[,"Y"])
       
-      
-      
-      
+
     }else{
       voronoi <- TRUE
     }
@@ -206,6 +198,7 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
         }
       }
     }
+    
     # Voronoi polygons from centres -----------------------------------
     box <- st_as_sfc(st_bbox(centres))
     
@@ -227,10 +220,7 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
     
     if(min(nb_info$num) == 0){stop("ERROR some strata have no neighbours")}
     
-    
-    
   }#end if voronoi
-  
   
   if(plot_neighbours){
     
@@ -238,11 +228,7 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
                             replacement = "_",
                             x = species)
     
-    
     plot_file_name = paste0(plot_dir,species_dirname,plot_file,".pdf")
-    
-    
-    
     
     nb_l <- nb2listw(nb_db)
     nt = length(attributes(nb_l$neighbours)$region.id)
@@ -278,8 +264,6 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
       coord_sf(xlim = xb,ylim = yb)+
       theme(legend.position = "none")
     
-    
-    
     pdf(file = plot_file_name,
         width = 11,
         height = 8.5)
@@ -303,7 +287,6 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
     }
   }
   
-  
   ### re-arrange GEOBUGS formated nb_info into appropriate format for Stan model
   car_stan <- mungeCARdata4stan(adjBUGS = nb_info$adj,
                                 numBUGS = nb_info$num)
@@ -316,4 +299,6 @@ neighbours_define <- function(real_strata_map = realized_strata_map, #sf map of 
               node2 = car_stan$node2,
               adj_matrix = car_stan$adj_matrix,
               map = ggp))
+  
 } ### end of function
+
