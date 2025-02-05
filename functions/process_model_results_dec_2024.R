@@ -7,6 +7,7 @@ process_model_results <- function(){
   # library(posterior) # this is called in script but not loaded due to masking
   require(patchwork)
   require(ggforce)
+  require(magick)
   require(ggpattern)
   require(naturecounts)
   require(mgcv)
@@ -845,8 +846,6 @@ process_model_results <- function(){
             na="", row.names=F)
   # ----------------------------------------------------------------------------
   
-  # NEED TO ADD QUALITY INFO
-
 } # end function
 
 

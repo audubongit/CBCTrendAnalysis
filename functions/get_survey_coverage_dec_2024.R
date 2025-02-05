@@ -2,10 +2,10 @@
 get_survey_coverage <- function(){
 
   # set up ---------------------------------------------------------------------
-  library(SurveyCoverage)
-  library(tidyverse)
-  library (ebirdst)
-  # set_ebirdst_access_key("52q326g4b3sf")
+  require(SurveyCoverage)
+  require(tidyverse)
+  require (ebirdst)
+  # set_ebirdst_access_key("52q326g4b3sf", overwrite=T)
   # ----------------------------------------------------------------------------
   
   

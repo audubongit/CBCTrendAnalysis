@@ -1,5 +1,7 @@
 
-# loadsome libraries
+# load some libraries
+library(SurveyCoverage)
+library(ebirdst)
 library(cmdstanr)
 library(bbsBayes2)
 library(parallel)
@@ -19,26 +21,29 @@ stratification1 <- "bbs_cws"
 # set some stand model settings for testing
 refresh1 <- 2
 chains1 <- 4
-iter_sampling1 <- 10
-iter_warmup1 <- 10
+iter_sampling1 <- 100
+iter_warmup1 <- 100
 parallel_chains1 <- 4
 adapt_delta1 <- 0.8
 max_treedepth1 <- 11
 init1 <- 1
 
 # set some stand model settings for actual analysis
-refresh1 <- 200
-chains1 <- 4 
-iter_sampling1 <- 1000
-iter_warmup1 <- 1000
-parallel_chains1 <- 4
-adapt_delta1 <- 0.8
-max_treedepth1 <- 11
-init1 <- 1
+# refresh1 <- 200
+# chains1 <- 4 
+# iter_sampling1 <- 1000
+# iter_warmup1 <- 1000
+# parallel_chains1 <- 4
+# adapt_delta1 <- 0.8
+# max_treedepth1 <- 11
+# init1 <- 1
 
 # input three major tables
 setwd(code_dir)
 species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"))
+names(species_table) <-  c("ebird_spp_code","ebird_com_name","ebird_sci_name","total_counted",
+                           "historic_cbc_com_name","lon_filter","lat_filter","prov_state_filter",
+                           "bcr_filter","add_nocturnal","add_feeder","survey_suitability")
 count_table <- read_csv("./output/count_table_dec_2024.csv")
 site_table <- read_csv("./data/site_table_dec_2024.csv")
 
@@ -62,8 +67,11 @@ survey_suitabilities <- species_table$survey_suitability
 
 # for loop to be converted to parallel loop
 s <- 1
-#for(s in 1:nrow(species_table)){
+# for(s in 1:nrow(species_table)){
+for(s in 1:3){
 
+  # add a log file
+  
   # define species variables
   ebird_spp_code_s <- ebird_spp_codes[s]
   ebird_com_name_s <- ebird_com_names[s]
@@ -103,7 +111,7 @@ s <- 1
   source("functions/add_estimate_quality_dec_2024.R")
   add_estimate_quality()
   
-#}
+}
 
 
 

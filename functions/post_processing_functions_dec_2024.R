@@ -275,12 +275,13 @@ get_smooth_ns <- function(idx_list){
 
 
 # cbc trends mapping function --------------------------------------------------
-map_function <- function(trds = strat_lt_trds, spunit = "bbs_cws"){
+map_function <- function(trds = bcr_lt_trds, spunit = "bcr"){
   require(ggplot2)
   require(ggpattern)
   require(bbsBayes2)
   require(sf)
   require(dplyr)
+  species <- ebird_com_name_s
   breaks1 <- c(-7, -4, -2, -1, -0.5, 0.5, 1, 2, 4, 7)
   labls1 <- c(paste0("< ", breaks1[1]),
               paste0(breaks1[-c(length(breaks1))],":", breaks1[-c(1)]),
@@ -299,7 +300,7 @@ map_function <- function(trds = strat_lt_trds, spunit = "bbs_cws"){
     map1 <- bbsBayes2::load_map(stratify_by = spunit, type = "strata") %>% 
       mutate(stratum = strata_name)
   }
-  map_ext1 <- sf::st_bbox(right_join(map1, trds)) * 1.2
+  map_ext1 <- sf::st_bbox(right_join(map1, trds)) * 1
   trds_map1 <- left_join(map1, trds, by = "strata_name") %>% 
     mutate(t_plot = cut(trend, breaks = c(-Inf, breaks1, Inf),
                         labels = labls1, ordered_result = TRUE)) %>% 
@@ -314,13 +315,13 @@ map_function <- function(trds = strat_lt_trds, spunit = "bbs_cws"){
     geom_sf(data = map1, fill = "grey80") + 
     geom_sf(data = trds_map1 %>% filter(!is.na(t_plot)), 
             aes(fill = t_plot), show.legend = TRUE) + 
-    geom_sf_pattern(data = trds_map1,
-                    aes(fill = t_plot, pattern_type = sig),
-                    pattern = 'magick',
-                    pattern_scale = 0.5,
-                    pattern_fill = "black",
-                    show.legend = F) +
-    scale_pattern_type_discrete(choices = c("gray100", "left45")) +
+    # geom_sf_pattern(data = trds_map1,
+    #                 aes(fill = t_plot, pattern_type = sig),
+    #                 pattern = 'magick',
+    #                 pattern_scale = 0.5,
+    #                 pattern_fill = "black",
+    #                 show.legend = F) +
+    #scale_pattern_type_discrete(choices = c("gray100", "left45")) +
     scale_fill_manual(values = pal1,
                       drop = F,
                       na.translate = F,
