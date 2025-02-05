@@ -21,8 +21,8 @@ stratification1 <- "bbs_cws"
 # set some stand model settings for testing
 refresh1 <- 2
 chains1 <- 4
-iter_sampling1 <- 100
-iter_warmup1 <- 100
+iter_sampling1 <- 10
+iter_warmup1 <- 10
 parallel_chains1 <- 4
 adapt_delta1 <- 0.8
 max_treedepth1 <- 11
@@ -41,9 +41,6 @@ init1 <- 1
 # input three major tables
 setwd(code_dir)
 species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"))
-names(species_table) <-  c("ebird_spp_code","ebird_com_name","ebird_sci_name","total_counted",
-                           "historic_cbc_com_name","lon_filter","lat_filter","prov_state_filter",
-                           "bcr_filter","add_nocturnal","add_feeder","survey_suitability")
 count_table <- read_csv("./output/count_table_dec_2024.csv")
 site_table <- read_csv("./data/site_table_dec_2024.csv")
 
@@ -61,16 +58,18 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # set up cluster
-#n_cores <- floor((parallel::detectCores()-1)/4) # requires 4 cores per species
-
-
-
-# for loop to be converted to parallel loop
-s <- 1
-# for(s in 1:nrow(species_table)){
-for(s in 1:3){
-
-  # add a log file
+n_cores <- 5
+cluster <- makeCluster(n_cores, type = "PSOCK")
+registerDoParallel(cluster)
+# test <- foreach(i = rev(1:nrow(species_table)),
+foreach(s = 1:5,
+                .packages = c("SurveyCoverage",
+                              "ebirdst",
+                              "cmdstanr",
+                              "bbsBayes2",
+                              "tidyverse"),
+        .errorhandling = "pass") %dopar%
+  { # start foreach loop
   
   # define species variables
   ebird_spp_code_s <- ebird_spp_codes[s]
@@ -89,31 +88,53 @@ for(s in 1:3){
   dir_out1 <- file.path(results_dir, gsub(" ", "_", ebird_com_name_s))
   dir.create(dir_out1)
   
+  # # set up progress log file
+  # capture.output(print(paste0("Create progress log file. ", Sys.time())),
+  #                file=file.path(dir_out1, "analysis_progress_log.txt"), append=F)
+  
   # get data
   source("functions/get_and_filter_count_data_dec_2024.R")
-  get_and_filter_count_data()
+  # tryCatch({
+    get_and_filter_count_data()
+  # }, error=function(e){})
   
   # get coverage
   source("functions/get_survey_coverage_dec_2024.R")
-  get_survey_coverage()
-  
+  # tryCatch({
+    get_survey_coverage()
+    # capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
+    #                file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+  # }, error=function(e){})
+
   # set up and run model
   source("functions/neighbors_define_dec_2024.R")
   source("functions/prep_and_fit_model_dec_2024.R")
-  prep_and_fit_model()
-  
+  # tryCatch({
+    prep_and_fit_model()
+    # capture.output(print(paste0("Finished running model. ", Sys.time())),
+    #                file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+  # }, error=function(e){})
+
   # process model results
   source("functions/post_processing_functions_dec_2024.R")
   source("functions/process_model_results_dec_2024.R")
-  process_model_results()
-  
+  # tryCatch({
+    process_model_results()
+    # capture.output(print(paste0("Finished processing results. ", Sys.time())),
+    #                file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+  # }, error=function(e){})
+
   # add quality info
   source("functions/add_estimate_quality_dec_2024.R")
-  add_estimate_quality()
-  
-}
+  # tryCatch({
+    add_estimate_quality()
+    # capture.output(print(paste0("Finished adding quality. ", Sys.time())),
+    #                file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+  # }, error=function(e){})
 
+} # end foreach loop
 
+parallel::stopCluster(cluster)
 
 
 

@@ -24,7 +24,6 @@ process_model_results <- function(){
   
   
   
-  
   # get fit object and other input data ----------------------------------------
   # uses data_prep and fit from data prep and model fit script
   # bring in model fit object
@@ -73,7 +72,6 @@ process_model_results <- function(){
   year_3g <- year_N - gen_3_years
   pif_quant <- c(0.025, 0.05, 0.165, 0.5, 0.835, 0.95, 0.975)
   # ----------------------------------------------------------------------------
-  
   
   
   
@@ -154,7 +152,6 @@ process_model_results <- function(){
   
   
   
-  
   # effort correction by stratum -----------------------------------------------
   effort_preds <- data.frame(p_of_mean_effort = stan_data$effort_preds,
                              effort = c(1:stan_data$n_effort_preds))
@@ -180,13 +177,10 @@ process_model_results <- function(){
     theme_bw()
   
   # save
-  cairo_pdf(file.path(dir_out1, paste0(gsub(" ", "_", species), 
-                   "_stratum_effort_correction_plots.pdf")),  
-            width = 11, height = 8.5)
-  vis_eff
-  dev.off()
+  ggsave(filename = file.path(dir_out1, paste0(gsub(" ", "_", species), 
+                   "_stratum_effort_correction_plots.pdf")),
+         plot = vis_eff, width = 11, height = 8.5, units = "in")
   # ----------------------------------------------------------------------------
-  
   
   
   
@@ -255,9 +249,7 @@ process_model_results <- function(){
                                     7)) +
       labs(x="Year", y="Abundance index (95% CrI) per year and BCR") +
       theme_bw()
-    cairo_pdf(fn, width = 11, height = 8.5)
-    print(plt_i)
-    dev.off()
+    ggsave(fn, plt_i, width = 11, height = 8.5, units = "in")
   }
     
   # turn indices into lt trends
@@ -305,13 +297,10 @@ process_model_results <- function(){
   # all together
   ptch1 <- ((tp_lt + tp_exp) / (tp_10yr + tp_3gen))
   ptch1 <- ptch1 + plot_layout(guides = 'collect')
-  cairo_pdf(file.path(dir_out1, paste0(gsub(" ", "_", species), 
-                                       "_bcr_trend_map.pdf")),  
-            width = 9.25, height = 10)
-  ptch1
-  dev.off()
+  ggsave(file.path(dir_out1, paste0(gsub(" ", "_", species), 
+                                    "_bcr_trend_map.pdf")),
+         ptch1, width = 9.25, height = 10, units="in")
   # ----------------------------------------------------------------------------
-  
   
   
   
@@ -374,9 +363,7 @@ process_model_results <- function(){
                                     7)) +
       labs(x="Year", y="Abundance index (95% CrI) per year and province or state") +
       theme_bw()
-    cairo_pdf(fn, width = 11, height = 8.5)
-    print(plt_i)
-    dev.off()
+    ggsave(fn, plt_i, width = 11, height = 8.5, units = "in")
   }
   
   # turn indices into lt trends
@@ -424,13 +411,10 @@ process_model_results <- function(){
   # all together
   ptch1 <- ((tp_lt + tp_exp) / (tp_10yr + tp_3gen))
   ptch1 <- ptch1 + plot_layout(guides = 'collect')
-  cairo_pdf(file.path(dir_out1, paste0(gsub(" ", "_", species), 
-                                       "_prov_state_trend_map.pdf")),  
-            width = 9.25, height = 10)
-  ptch1
-  dev.off()
+  ggsave(file.path(dir_out1, paste0(gsub(" ", "_", species), 
+                                    "_prov_state_trend_map.pdf")),
+         ptch1, width = 9.25, height = 10, units = "in")
   # ----------------------------------------------------------------------------
-  
   
   
   
@@ -481,11 +465,9 @@ process_model_results <- function(){
     theme_bw()
   
   # save index plot
-  cairo_pdf(file.path(dir_out1, paste0(gsub(" ", "_", species), 
-                   "_annual_indices_country.pdf")),  
-            width = 11, height = 8.5)
-  cntry_ind_plot
-  dev.off()
+  ggsave(file.path(dir_out1, paste0(gsub(" ", "_", species), 
+                                    "_annual_indices_country.pdf")), 
+         cntry_ind_plot, width = 11, height = 8.5, units="in")
   
   # turn indices into lt trends
   cntry_lt_trds <- trends_function(ind_list = cntry_idx_lst, start_year = year_1, 
@@ -523,7 +505,6 @@ process_model_results <- function(){
            sig = ifelse(lci>0 | uci<0, 1, 0),
            gen_3_years = gen_3_years)
   # ----------------------------------------------------------------------------
-  
   
   
   
@@ -572,11 +553,9 @@ process_model_results <- function(){
     theme_bw()
   
   # save index plot
-  cairo_pdf(file.path(dir_out1, paste0(gsub(" ", "_", species), 
-                   "_annual_indices_survey.pdf")),  
-            width = 11, height = 8.5)
-  cont_ind_plot
-  dev.off()
+  ggsave(file.path(dir_out1, paste0(gsub(" ", "_", species), 
+                                    "_annual_indices_survey.pdf")), 
+         cont_ind_plot, width = 11, height = 8.5, units = "in")
   
   # turn indices into lt trends
   cont_lt_trds <- trends_function(ind_list = cont_idx_lst, start_year = year_1, 
@@ -614,7 +593,6 @@ process_model_results <- function(){
            sig = ifelse(lci>0 | uci<0, 1, 0),
            gen_3_years = gen_3_years)
   # ----------------------------------------------------------------------------
-  
   
   
   
@@ -678,9 +656,7 @@ process_model_results <- function(){
                                     7)) +
       labs(x="Year", y="Abundance index (95% CrI) per year and stratum") +
       theme_bw()
-    cairo_pdf(fn, width = 11, height = 8.5)
-    print(plt_i)
-    dev.off() 
+    ggsave(fn, plt_i, width = 11, height = 8.5, units="in")
   }
   
   # turn indices into lt trends
@@ -756,14 +732,10 @@ process_model_results <- function(){
   # all together
   ptch1 <- ((tp_lt + tp_exp) / (tp_10yr + tp_3gen))
   ptch1 <- ptch1 + plot_layout(guides = 'collect')
-  cairo_pdf(file.path(dir_out1, paste0(gsub(" ", "_", species), 
-                                       "_stratum_trend_map.pdf")),  
-            width = 9.25, height = 10)
-  ptch1
-  dev.off()
+  ggsave(file.path(dir_out1, paste0(gsub(" ", "_", species), 
+                                    "_stratum_trend_map.pdf")),
+         ptch1, width = 9.25, height = 10, units="in")
   # ----------------------------------------------------------------------------
-  
-  
   
   
   

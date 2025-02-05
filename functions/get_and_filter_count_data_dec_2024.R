@@ -8,7 +8,7 @@ get_and_filter_count_data <- function(){
   
   # filter count table based on taxon key
   potential_common_names <- historic_cbc_com_name_s
-  count1 <- count_table %>% filter(common_name %in% potential_common_names)
+  count1 <- count_table %>% filter(common_name %in% unlist(str_split(potential_common_names, ",")))
   
   # join count and site tables for zero filling
   dat1 <- site_table %>% left_join(count1, by="join_code") %>% 
@@ -79,8 +79,7 @@ get_and_filter_count_data <- function(){
                              "_zero_filled_and_filtered_modeling_data.csv"))
   write.csv(dat3, fname1, na="", row.names=F)
   
-  # end function
-}
+} # end function
 
 
 # test function

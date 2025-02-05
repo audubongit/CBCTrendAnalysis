@@ -1,4 +1,4 @@
-﻿ebird_spp_code,ebird_com_name,ebird_sci_name,total_counted,historic_cbc_com_name,lon_filter,lat_filter,prov_state_filter,bcr_filter,add_nocturnal,add_feeder,survey_suitability
+ebird_spp_code,ebird_com_name,ebird_sci_name,total_counted,historic_cbc_com_name,lon_filter,lat_filter,prov_state_filter,bcr_filter,add_nocturnal,add_feeder,survey_suitability
 abetow,Abert's Towhee,Melozone aberti,123331,Abert's Towhee,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 acowoo,Acorn Woodpecker,Melanerpes formicivorus,648936,"Acorn Woodpecker,Acorn Woodpecker (Acorn)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 afcdov1,African Collared-Dove,Streptopelia roseogrisea,5995,"African Collared-Dove,African Collared-Dove (Domestic type or Ringed Turtle-Dove)","-50,-180","90,20",!ZZ,!ZZ,0,0,
