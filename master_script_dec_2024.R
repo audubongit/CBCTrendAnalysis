@@ -29,7 +29,6 @@ stratification1 <- "bbs_cws"
 refresh1 <- 0
 sig_figs1 <- 4
 chains1 <- 4
-parallel_chains1 <- 4
 iter_sampling1 <- 1000
 iter_warmup1 <- 1000
 parallel_chains1 <- 4
@@ -46,7 +45,7 @@ site_table <- read_csv("./data/site_table_dec_2024.csv")
 # identify which worker to use
 worker_number <- 1
 species_table <- species_table %>% arrange(desc(total_counted)) %>% 
-  mutate(worker_id=rep(1:11, length.out=nrow(species_table))) %>% 
+  mutate(worker_id=rep(1:7, length.out=nrow(species_table))) %>% 
   filter(worker_id==worker_number) %>% 
   sample_n(size=nrow(.), replace = FALSE)
 
@@ -98,7 +97,7 @@ for(s in 1:nrow(species_table)){ # start for loop
   source("functions/get_survey_coverage_dec_2024.R")
   tryCatch({
     get_survey_coverage()
-  capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
+    capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
 
@@ -107,7 +106,7 @@ for(s in 1:nrow(species_table)){ # start for loop
   source("functions/prep_and_fit_model_dec_2024.R")
   tryCatch({
     prep_and_fit_model()
-  capture.output(print(paste0("Finished running model. ", Sys.time())),
+    capture.output(print(paste0("Finished running model. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
 
@@ -116,7 +115,7 @@ for(s in 1:nrow(species_table)){ # start for loop
   source("functions/process_model_results_dec_2024.R")
   tryCatch({
     process_model_results()
-  capture.output(print(paste0("Finished processing results. ", Sys.time())),
+    capture.output(print(paste0("Finished processing results. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
 
@@ -124,7 +123,7 @@ for(s in 1:nrow(species_table)){ # start for loop
   source("functions/add_estimate_quality_dec_2024.R")
   tryCatch({
     add_estimate_quality()
-  capture.output(print(paste0("Finished adding quality. ", Sys.time())),
+    capture.output(print(paste0("Finished adding quality. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
 
