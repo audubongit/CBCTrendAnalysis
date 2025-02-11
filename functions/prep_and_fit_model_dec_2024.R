@@ -179,15 +179,19 @@ prep_and_fit_model <- function(){
   stanfit <- model$sample(
     data = stan_data,
     refresh = refresh1,
+    sig_figs = sig_figs1,
     chains = chains1, 
+    parallel_chains = parallel_chains1,
     iter_sampling = iter_sampling1,
     iter_warmup = iter_warmup1,
     parallel_chains = parallel_chains1,
-    # pars = parms,
     adapt_delta = adapt_delta1,
     max_treedepth = max_treedepth1,
-    # seed = 123,
     init = init1,
+    save_latent_dynamics = FALSE,
+    save_warmup = FALSE,
+    save_metric = FALSE,
+    save_cmdstan_config = FALSE,
     show_exceptions = FALSE)
   
   # save cmdstan objects

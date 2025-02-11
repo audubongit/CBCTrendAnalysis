@@ -26,13 +26,15 @@ stratification1 <- "bbs_cws"
 # init1 <- 1
 
 # set some stan model settings for actual analysis
-refresh1 <- 200
+refresh1 <- 0
+sig_figs1 <- 4
 chains1 <- 4
+parallel_chains1 <- 4
 iter_sampling1 <- 1000
 iter_warmup1 <- 1000
 parallel_chains1 <- 4
 adapt_delta1 <- 0.8
-max_treedepth1 <- 14
+max_treedepth1 <- 10
 init1 <- 1
 
 # input three major tables
@@ -45,7 +47,8 @@ site_table <- read_csv("./data/site_table_dec_2024.csv")
 worker_number <- 1
 species_table <- species_table %>% arrange(desc(total_counted)) %>% 
   mutate(worker_id=rep(1:11, length.out=nrow(species_table))) %>% 
-  filter(worker_id==worker_number)
+  filter(worker_id==worker_number) %>% 
+  sample_n(size=nrow(.), replace = FALSE)
 
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
