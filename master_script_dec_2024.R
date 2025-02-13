@@ -43,7 +43,7 @@ count_table <- read_csv("./output/count_table_dec_2024.csv")
 site_table <- read_csv("./data/site_table_dec_2024.csv")
 
 # identify which worker to use
-worker_number <- 1
+worker_number <- 3
 species_table <- species_table %>% arrange(desc(total_counted)) %>% 
   mutate(worker_id=rep(1:7, length.out=nrow(species_table))) %>% 
   filter(worker_id==worker_number) %>% 
