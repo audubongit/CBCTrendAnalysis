@@ -2,7 +2,7 @@
 
 
 # cbc annual index function ----------------------------------------------------
-index_function <- function(fit = some_fit, # works for cmndstanr
+index_function <- function(cmdstan_draws = draws1,
                            quant = 0.95, # credible interval
                            year_1 = 1966, # first year
                            parameter = "n", # parameter name from samples
@@ -68,7 +68,7 @@ index_function <- function(fit = some_fit, # works for cmndstanr
   } #### end checks and tweaks
   
   # get initial posterior samples following checks and tweaks
-  smpls <- posterior_samples(fit = fit, parm = parameter, dims = dims)
+  smpls <- posterior_samples(cmdstan_draws = draws1, parm = parameter, dims = dims)
   
   #################### processing when weights ARE given #######################
   
@@ -540,11 +540,9 @@ dim_ext <- function(dim = 1,
 ## function works with cmdstanr output by default and rstan fits
 ## with is_rstan == TRUE
 # this function is used in index_function()
-posterior_samples <- function(fit = cmdstanfit,
-                              parm = "nsmooth",
-                              dims = NULL,
-                              is_rstan = FALSE,
-                              is_mcmc = FALSE){
+posterior_samples <- function(cmdstan_draws = draws1,
+                              parm = "n",
+                              dims = NULL){
   # require(posterior) # not loaded to avoid masking
   require(tidyverse)
   
@@ -554,19 +552,9 @@ posterior_samples <- function(fit = cmdstanfit,
     parm_ex <- parm
   }
   
-  if(class(fit)[1] == "stanfit"){is_rstan <- TRUE}
-  
-  if(class(fit)[1] == "mcmc"){is_mcmc <- TRUE}
-  
-  if(is_rstan | is_mcmc){
-    samples <- posterior::as_draws_df(as.array(fit)) %>% 
-      dplyr::select(starts_with(parm_ex, ignore.case = FALSE),
-                    .chain,
-                    .iteration,
-                    .draw)
-  } else {
-    samples <- posterior::as_draws_df(fit$draws(variables = c(parm)))
-  }
+  # get subset of samples
+  samples <- posterior::as_draws_df(
+    posterior::subset_draws(draws1, variable = parm))
 
   plong <- suppressWarnings(samples %>% pivot_longer(
     cols = starts_with(parm_ex, ignore.case = FALSE),

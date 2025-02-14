@@ -1,3 +1,9 @@
+# # first change the temp directory to something that can handle cmdstan output files
+# usethis::edit_r_environ()
+# add something like this: TMPDIR = "C:\Users\tmeehan\Desktop\test_data"
+# .rs.restartR()
+tempdir()
+
 
 # load some libraries
 library(SurveyCoverage)
@@ -8,33 +14,35 @@ library(tidyverse)
 
 # define some directories
 code_dir <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
-results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
+# results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
+results_dir <- "C:/Users/tmeehan/Desktop/test_data"
 
 # set some stratum selection settings
 number_years_per_circle_threshold <- 5 # minimum
 nonzero_circles_threshold <- 3 # minimum
 stratification1 <- "bbs_cws"
 
-# # set some stan model settings for testing
-# refresh1 <- 2
-# chains1 <- 4
-# iter_sampling1 <- 10
-# iter_warmup1 <- 10
-# parallel_chains1 <- 4
-# adapt_delta1 <- 0.8
-# max_treedepth1 <- 11
-# init1 <- 1
-
-# set some stan model settings for actual analysis
+# set some stan model settings for testing
 refresh1 <- 0
 sig_figs1 <- 4
 chains1 <- 4
-iter_sampling1 <- 1000
-iter_warmup1 <- 1000
+iter_sampling1 <- 20
+iter_warmup1 <- 20
 parallel_chains1 <- 4
 adapt_delta1 <- 0.8
-max_treedepth1 <- 10
+max_treedepth1 <- 12
 init1 <- 1
+
+# # set some stan model settings for actual analysis
+# refresh1 <- 0
+# sig_figs1 <- 4
+# chains1 <- 4
+# iter_sampling1 <- 1000
+# iter_warmup1 <- 1000
+# parallel_chains1 <- 4
+# adapt_delta1 <- 0.8
+# max_treedepth1 <- 12
+# init1 <- 1
 
 # input three major tables
 setwd(code_dir)
@@ -42,12 +50,12 @@ species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"))
 count_table <- read_csv("./output/count_table_dec_2024.csv")
 site_table <- read_csv("./data/site_table_dec_2024.csv")
 
-# identify which worker to use
-worker_number <- 3
-species_table <- species_table %>% arrange(desc(total_counted)) %>% 
-  mutate(worker_id=rep(1:7, length.out=nrow(species_table))) %>% 
-  filter(worker_id==worker_number) %>% 
-  sample_n(size=nrow(.), replace = FALSE)
+# # identify which worker to use
+# worker_number <- 1
+# species_table <- species_table %>% arrange(desc(total_counted)) %>% 
+#   mutate(worker_id=rep(1:7, length.out=nrow(species_table))) %>% 
+#   filter(worker_id==worker_number) %>% 
+#   sample_n(size=nrow(.), replace = FALSE)
 
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
@@ -63,7 +71,9 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
+s <- 46
 for(s in 1:nrow(species_table)){ # start for loop
+  
   
   # define species variables
   ebird_spp_code_s <- ebird_spp_codes[s]
@@ -78,30 +88,46 @@ for(s in 1:nrow(species_table)){ # start for loop
   add_feeder_s <- add_feeders[s]
   survey_suitability_s <- survey_suitabilities[s]
   
+  
   # define output location
   dir_out1 <- file.path(results_dir, gsub(" ", "_", ebird_com_name_s))
   dir.create(dir_out1)
+
   
-  # set up progress log file
+  # set up progress log file ---------------------------------------------------
   capture.output(print(paste0("Create progress log file. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), 
                  append=F)
   
-  # get data
+  
+  # get data -------------------------------------------------------------------
   source("functions/get_and_filter_count_data_dec_2024.R")
   tryCatch({
     get_and_filter_count_data()
   }, error=function(e){})
   
-  # get coverage
+  print(" "); print(" "); print(" ") 
+  print(paste("got data for", ebird_com_name_s))
+  print(" "); print(" "); print(" ") 
+  
+  
+  # get coverage ---------------------------------------------------------------
   source("functions/get_survey_coverage_dec_2024.R")
   tryCatch({
     get_survey_coverage()
     capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
+  
+  try(unlink(file.path(ebirdst_data_dir(), "2022", ebird_spp_code_s), 
+             recursive = T), silent=TRUE)
+  
+  print(" "); print(" "); print(" ") 
+  print(paste("tried coverage for", ebird_com_name_s))
+  print(" "); print(" "); print(" ") 
+  
 
-  # set up and run model
+  # set up and run model -------------------------------------------------------
   source("functions/neighbors_define_dec_2024.R")
   source("functions/prep_and_fit_model_dec_2024.R")
   tryCatch({
@@ -109,30 +135,55 @@ for(s in 1:nrow(species_table)){ # start for loop
     capture.output(print(paste0("Finished running model. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
+  
+  print(" "); print(" "); print(" ") 
+  print(paste("tried model for", ebird_com_name_s))
+  print(" "); print(" "); print(" ") 
+  
 
-  # process model results
+  # process model results ------------------------------------------------------
   source("functions/post_processing_functions_dec_2024.R")
   source("functions/process_model_results_dec_2024.R")
   tryCatch({
+    draws1 <- readRDS(file.path(dir_out1, 
+                                paste0("posterior_draws_",
+                                       gsub(" ", "_", ebird_com_name_s),
+                                       "_CBC_spatial_first_diff.rds")))
     process_model_results()
+    rm(draws1)
     capture.output(print(paste0("Finished processing results. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
+  
+  print(" "); print(" "); print(" ") 
+  print(paste("tried to process results for", ebird_com_name_s))
+  print(" "); print(" "); print(" ") 
+  
 
-  # add quality info
+  # add quality info -----------------------------------------------------------
   source("functions/add_estimate_quality_dec_2024.R")
   tryCatch({
     add_estimate_quality()
     capture.output(print(paste0("Finished adding quality. ", Sys.time())),
                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
   }, error=function(e){})
+  
+  print(" "); print(" "); print(" ") 
+  print(paste("tried to finish for", ebird_com_name_s))
+  print(" "); print(" "); print(" ") 
+  
 
-} # end foreach loop
+} # end for loop
 
 
 # done. that was easy.
 
 
+# # now first change back the temp directory
+# usethis::edit_r_environ()
+# remove something like this: TMPDIR = "C:\Users\tmeehan\Desktop\test_data"
+# .rs.restartR()
+tempdir()
 
 
 

@@ -27,11 +27,13 @@ process_model_results <- function(){
   # get fit object and other input data ----------------------------------------
   # uses data_prep and fit from data prep and model fit script
   # bring in model fit object
-  fit <- readRDS(file.path(dir_out1, paste0("fit_",species_l,
-                                            "_CBC_spatial_first_diff.rds")))
+  # fit <- readRDS(file.path(dir_out1, paste0("fit_object_",species_l,
+  #                                           "_CBC_spatial_first_diff.rds")))
+  # draws1 <- readRDS(file.path(dir_out1, paste0("posterior_draws_",species_l,
+  #                                              "_CBC_spatial_first_diff.rds")))
   data_prep <- readRDS(file.path(dir_out1, paste0("data_prep_", species_l,
                                                   ".rds")))
-  stan_data <- readRDS(file.path(dir_out1, paste0("datalist_", species_l,
+  stan_data <- readRDS(file.path(dir_out1, paste0("stan_datalist_", species_l,
                                                   "_CBC_spatial_first_diff.rds")))
   
   # make a stratum df
@@ -77,7 +79,7 @@ process_model_results <- function(){
   
   # diagnostics ----------------------------------------------------------------
   # abundance indices
-  nit_par_diags <- fit$draws() %>% 
+  nit_par_diags <- draws1 %>% 
     posterior::subset_draws(variable = c("n")) %>% 
     posterior::as_draws_df() %>% 
     posterior::summarise_draws(mean, sd, 
@@ -104,7 +106,7 @@ process_model_results <- function(){
   }
   
   # effort parameters
-  eff_par_diags <- fit$draws() %>% 
+  eff_par_diags <- draws1 %>% 
     posterior::subset_draws(variable = c("B", "b_raw", "P", "p_raw")) %>% 
     posterior::as_draws_df() %>% 
     mutate_at(vars(starts_with("b_raw")), .funs = ~ .x + B) %>% 
@@ -115,7 +117,7 @@ process_model_results <- function(){
     posterior::summarise_draws(mean, sd, 
                     ~quantile(.x, probs = pif_quant)) %>% 
     rename_at(vars(c(4:8)), .funs = ~paste0("q", .x)) %>% 
-    bind_cols(fit$draws() %>% 
+    bind_cols(draws1 %>% 
                 posterior::subset_draws(variable = c("B", "b_raw", "P", "p_raw")) %>% 
                 posterior::as_draws_df() %>% 
                 posterior::summarise_draws(posterior::default_convergence_measures()) %>% 
@@ -157,9 +159,9 @@ process_model_results <- function(){
                              effort = c(1:stan_data$n_effort_preds))
   
   # effort curve by stratum samples
-  eff <- posterior_samples(fit = fit, parm = "effort_strata",
-                              dims = c("stratum","effort")) %>% 
-    posterior_sums(dims = c("stratum","effort")) %>% 
+  eff <- posterior_samples(cmdstan_draws = draws1, parm = "effort_strata",
+                              dims = c("stratum", "effort")) %>% 
+    posterior_sums(dims = c("stratum", "effort")) %>% 
     inner_join(., strat_df, by = "stratum") %>% 
     inner_join(effort_preds, by = "effort")
   
@@ -191,7 +193,7 @@ process_model_results <- function(){
     st_drop_geometry() %>% as.data.frame()
   
   # bcr indices
-  bcr_idx_lst <- index_function(fit = fit,
+  bcr_idx_lst <- index_function(cmdstan_draws=draws1, 
                                parameter = "n",
                                strat = "stratum",
                                year = "Year",
@@ -311,7 +313,7 @@ process_model_results <- function(){
     st_drop_geometry() %>% as.data.frame()
   
   # province and state indices
-  ps_idx_lst <- index_function(fit = fit,
+  ps_idx_lst <- index_function(cmdstan_draws = draws1,
                              parameter = "n",
                              strat = "stratum",
                              year = "Year",
@@ -425,7 +427,7 @@ process_model_results <- function(){
     st_drop_geometry() %>% as.data.frame()
   
   # country indices
-  cntry_idx_lst <- index_function(fit = fit,
+  cntry_idx_lst <- index_function(cmdstan_draws = draws1,
                             parameter = "n",
                             strat = "stratum",
                             year = "Year",
@@ -516,7 +518,7 @@ process_model_results <- function(){
     st_drop_geometry() %>% as.data.frame()
   
   # continent indices
-  cont_idx_lst <- index_function(fit = fit,
+  cont_idx_lst <- index_function(cmdstan_draws = draws1,
                                parameter = "n",
                                strat = "stratum",
                                year = "Year",
@@ -598,7 +600,7 @@ process_model_results <- function(){
   
   # stratum index summaries ----------------------------------------------------
   # stratum indices
-  strat_idx_lst <- index_function(fit = fit,
+  strat_idx_lst <- index_function(cmdstan_draws = draws1,
                                   parameter = "n",
                                   strat = "stratum",
                                   year = "Year",

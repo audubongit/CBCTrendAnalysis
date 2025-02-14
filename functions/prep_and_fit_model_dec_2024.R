@@ -178,6 +178,7 @@ prep_and_fit_model <- function(){
   # start sampling
   stanfit <- model$sample(
     data = stan_data,
+    output_basename = ebird_spp_code_s,
     refresh = refresh1,
     sig_figs = sig_figs1,
     chains = chains1, 
@@ -191,20 +192,32 @@ prep_and_fit_model <- function(){
     save_warmup = FALSE,
     save_metric = FALSE,
     save_cmdstan_config = FALSE,
-    save_extra_diagnostics = FALSE,
     show_exceptions = FALSE)
   
-  # save cmdstan objects
-  summ <- stanfit$summary()
-  stanfit$save_object(file.path(dir_out1, 
-                                paste0("fit_", gsub(" ", "_", species), 
-                                       "_CBC_spatial_first_diff.rds")))
-  saveRDS(stan_data, file.path(dir_out1, paste0("datalist_", 
+  # save input data
+  saveRDS(stan_data, file.path(dir_out1, paste0("stan_datalist_", 
                                                 gsub(" ", "_", species), 
                                                 "_CBC_spatial_first_diff.rds")))
-  saveRDS(summ, file.path(dir_out1, paste0("parameter_summary_", 
+  
+  # save cmdstan summary
+  saveRDS(stanfit$summary(), file.path(dir_out1, paste0("parameter_summary_", 
                                            gsub(" ", "_", species), 
                                            "_CBC_spatial_first_diff.rds")))
+  
+  # save selected draws
+  saveRDS(stanfit$draws(variables = c("n", "B", "b_raw", "P", "p_raw", 
+                                      "effort_strata")), 
+          file.path(dir_out1, paste0("posterior_draws_", 
+                                           gsub(" ", "_", species), 
+                                           "_CBC_spatial_first_diff.rds")))
+  
+  # # save whole stanfit object 
+  # stanfit$save_object(file.path(dir_out1, 
+  #                               paste0("fit_object_", gsub(" ", "_", species), 
+  #                                      "_CBC_spatial_first_diff.rds")))
+
+  # delete temp stan csv files
+  file.remove(list.files(tempdir(), pattern=ebird_spp_code_s, full.names = T))
   # ----------------------------------------------------------------------------
 
 } # end function
