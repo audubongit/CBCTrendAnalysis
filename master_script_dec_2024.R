@@ -14,35 +14,35 @@ library(tidyverse)
 
 # define some directories
 code_dir <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
-# results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
-results_dir <- "C:/Users/tmeehan/Desktop/test_data"
+results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
+# results_dir <- "C:/Users/tmeehan/Desktop/test_data"
 
 # set some stratum selection settings
 number_years_per_circle_threshold <- 5 # minimum
 nonzero_circles_threshold <- 3 # minimum
 stratification1 <- "bbs_cws"
 
-# set some stan model settings for testing
-refresh1 <- 0
-sig_figs1 <- 4
-chains1 <- 4
-iter_sampling1 <- 20
-iter_warmup1 <- 20
-parallel_chains1 <- 4
-adapt_delta1 <- 0.8
-max_treedepth1 <- 12
-init1 <- 1
-
-# # set some stan model settings for actual analysis
+# # set some stan model settings for testing
 # refresh1 <- 0
 # sig_figs1 <- 4
 # chains1 <- 4
-# iter_sampling1 <- 1000
-# iter_warmup1 <- 1000
+# iter_sampling1 <- 20
+# iter_warmup1 <- 20
 # parallel_chains1 <- 4
 # adapt_delta1 <- 0.8
 # max_treedepth1 <- 12
 # init1 <- 1
+
+# set some stan model settings for actual analysis
+refresh1 <- 250
+sig_figs1 <- 4
+chains1 <- 4
+iter_sampling1 <- 1000
+iter_warmup1 <- 1000
+parallel_chains1 <- 4
+adapt_delta1 <- 0.8
+max_treedepth1 <- 12
+init1 <- 1
 
 # input three major tables
 setwd(code_dir)
@@ -50,12 +50,12 @@ species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"))
 count_table <- read_csv("./output/count_table_dec_2024.csv")
 site_table <- read_csv("./data/site_table_dec_2024.csv")
 
-# # identify which worker to use
-# worker_number <- 1
-# species_table <- species_table %>% arrange(desc(total_counted)) %>% 
-#   mutate(worker_id=rep(1:7, length.out=nrow(species_table))) %>% 
-#   filter(worker_id==worker_number) %>% 
-#   sample_n(size=nrow(.), replace = FALSE)
+# identify which worker to use
+worker_number <- 10
+species_table <- species_table %>% arrange(desc(total_counted)) %>%
+  mutate(worker_id=rep(1:10, length.out=nrow(species_table))) %>%
+  filter(worker_id==worker_number) %>%
+  sample_n(size=nrow(.), replace = FALSE)
 
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
@@ -71,7 +71,7 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
-s <- 46
+#s <- 46
 for(s in 1:nrow(species_table)){ # start for loop
   
   
