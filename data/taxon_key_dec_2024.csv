@@ -17,7 +17,7 @@ amered,American Redstart,Setophaga ruticilla,4299,American Redstart,"-50,-180","
 amerob,American Robin,Turdus migratorius,72298475,"American Robin,American Robin (migratorius Group),American Robin (nigrideus)","-50,-180","90,20",!ZZ,!ZZ,0,0,low
 amewig,American Wigeon,Mareca americana,20370387,American Wigeon,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 amewoo,American Woodcock,Scolopax minor,43176,American Woodcock,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-amhgul1,American Herring Gull,Larus smithsonianus,32974621,"Herring Gull,Herring Gull (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+amhgul1,American Herring Gull,Larus smithsonianus,32974621,"Herring Gull,Herring Gull (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 amtspa,American Tree Sparrow,Spizelloides arborea,8480879,American Tree Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 amwpel,American White Pelican,Pelecanus erythrorhynchos,2169970,American White Pelican,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 ancmur,Ancient Murrelet,Synthliboramphus antiquus,136107,Ancient Murrelet,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -40,7 +40,7 @@ barswa,Barn Swallow,Hirundo rustica,9522,"Barn Swallow,Barn Swallow (American)",
 batpig1,Band-tailed Pigeon,Patagioenas fasciata,624849,"Band-tailed Pigeon,Band-tailed Pigeon (Northern)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 bawwar,Black-and-white Warbler,Mniotilta varia,43343,Black-and-white Warbler,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 bbwduc,Black-bellied Whistling-Duck,Dendrocygna autumnalis,689359,"Black-bellied Whistling-Duck,Black-bellied Whistling-Duck (autumnalis)","-50,-180","90,20",!ZZ,!ZZ,0,0,
-bcnher,Black-crowned Night Heron,Nycticorax nycticorax,491174,"Black-crowned Night-Heron,Black-crowned Night-Heron (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+bcnher,Black-crowned Night Heron,Nycticorax nycticorax,491174,"Black-crowned Night-Heron,Black-crowned Night-Heron (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 bcrfin,Brown-capped Rosy-Finch,Leucosticte australis,38740,Brown-capped Rosy-Finch,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 belkin1,Belted Kingfisher,Megaceryle alcyon,739174,Belted Kingfisher,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 belvir,Bell's Vireo,Vireo bellii,166,Bell's Vireo,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -93,7 +93,7 @@ britit,Bridled Titmouse,Baeolophus wollweberi,52833,Bridled Titmouse,"-50,-180",
 brnboo,Brown Booby,Sula leucogaster,2239,Brown Booby,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 brncre,Brown Creeper,Certhia americana,540495,"Brown Creeper,Brown Creeper (albescens/alticola),Brown Creeper (occidentalis Group)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 brnjay,Brown Jay,Cyanocorax morio,530,Brown Jay,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-brnow,American Barn Owl,Tyto furcata,30176,"Barn Owl,Barn Owl (American)","-50,-180","90,20",!ZZ,!ZZ,1,0,
+brnow,American Barn Owl,Tyto furcata,30176,"Barn Owl,Barn Owl (American)","-50,-180","90,20",!ZZ,!ZZ,1,0,
 brnpel,Brown Pelican,Pelecanus occidentalis,2145102,"Brown Pelican,Brown Pelican (Atlantic),Brown Pelican (California)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 brnthr,Brown Thrasher,Toxostoma rufum,240781,Brown Thrasher,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 brocow,Bronzed Cowbird,Molothrus aeneus,230771,Bronzed Cowbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -110,7 +110,7 @@ buhvir,Blue-headed Vireo,Vireo solitarius,69893,Blue-headed Vireo,"-50,-180","90
 bulori,Bullock's Oriole,Icterus bullockii,2604,Bullock's Oriole,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 burowl,Burrowing Owl,Athene cunicularia,20587,Burrowing Owl,"-50,-180","90,20",!ZZ,!ZZ,1,0,
 bushti,Bushtit,Psaltriparus minimus,2622194,"Bushtit,Bushtit (Black-eared),Bushtit (Interior),Bushtit (Pacific)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-buthum,Blue-throated Mountain-gem,Lampornis clemenciae,415,Blue-throated Hummingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
+buthum,Blue-throated Mountain-gem,Lampornis clemenciae,415,Blue-throated Hummingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 buwtea,Blue-winged Teal,Spatula discors,961420,Blue-winged Teal,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 cacwre,Cactus Wren,Campylorhynchus brunneicapillus,116021,Cactus Wren,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 calcon,California Condor,Gymnogyps californianus,455,California Condor,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -132,7 +132,7 @@ caskin,Cassin's Kingbird,Tyrannus vociferans,46582,Cassin's Kingbird,"-50,-180",
 casspa,Cassin's Sparrow,Peucaea cassinii,5126,Cassin's Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 caster1,Caspian Tern,Hydroprogne caspia,117383,Caspian Tern,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 casvir,Cassin's Vireo,Vireo cassinii,812,Cassin's Vireo,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-categr1,Western Cattle-Egret,Ardea ibis,1572365,"Western Cattle-Egret,Cattle Egret,Cattle Egret (Western)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+categr1,Western Cattle-Egret,Ardea ibis,1572365,"Western Cattle-Egret,Cattle Egret,Cattle Egret (Western)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 cavswa,Cave Swallow,Petrochelidon fulva,18906,"Cave Swallow,Cave Swallow (Texas)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 cedwax,Cedar Waxwing,Bombycilla cedrorum,8023553,Cedar Waxwing,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 chbchi,Chestnut-backed Chickadee,Poecile rufescens,1078936,Chestnut-backed Chickadee,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
@@ -148,7 +148,7 @@ clarai11,Clapper Rail,Rallus crepitans,3793,"Clapper Rail,Clapper Rail (Atlantic
 clcrob,Clay-colored Thrush,Turdus grayi,545,Clay-colored Thrush,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 clcspa,Clay-colored Sparrow,Spizella pallida,8770,Clay-colored Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 cliswa,Cliff Swallow,Petrochelidon pyrrhonota,335,Cliff Swallow,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-cogdov,Common Ground Dove,Columbina passerina,145970,"Common Ground Dove,Common Ground-Dove","-50,-180","90,20",!ZZ,!ZZ,0,0,
+cogdov,Common Ground Dove,Columbina passerina,145970,"Common Ground Dove,Common Ground-Dove","-50,-180","90,20",!ZZ,!ZZ,0,0,
 comeid,Common Eider,Somateria mollissima,5858349,"Common Eider,Common Eider (Dressers),Common Eider (Northern)","-50,-180","90,20",!ZZ,!ZZ,0,0,low
 comgal1,Common Gallinule,Gallinula galeata,693125,"Common Gallinule,Common Gallinule (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 comgol,Common Goldeneye,Bucephala clangula,7102831,Common Goldeneye,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
@@ -166,7 +166,7 @@ comter,Common Tern,Sterna hirundo,8834,Common Tern,"-50,-180","90,20",!ZZ,!ZZ,0,
 comyel,Common Yellowthroat,Geothlypis trichas,467592,"Common Yellowthroat,Common Yellowthroat (arizela Group),Common Yellowthroat (occidentalis Group),Common Yellowthroat (trichas Group)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 coohaw,Cooper's Hawk,Astur cooperii,271710,Cooper's Hawk,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 coshum,Costa's Hummingbird,Calypte costae,13368,Costa's Hummingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-cowscj1,California Scrub-Jay,Aphelocoma californica,10000,"California Scrub-Jay,Florida Scrub-Jay,Island Scrub-Jay,Western Scrub-Jay,Western Scrub-Jay (Coastal),Western Scrub-Jay (Woodhouse's)","-50,-180","90,20","CA,OR,WA",!ZZ,0,0,
+cowscj1,California Scrub-Jay,Aphelocoma californica,10000,"California Scrub-Jay,Florida Scrub-Jay,Island Scrub-Jay,Western Scrub-Jay,Western Scrub-Jay (Coastal),Western Scrub-Jay (Woodhouse's),Woodhouse's Scrub-Jay","-50,-180","90,20","CA,OR,WA",!ZZ,0,0,
 creauk,Crested Auklet,Aethia cristatella,23349,Crested Auklet,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 cremyn,Crested Myna,Acridotheres cristatellus,8600,Crested Myna,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 crithr,Crissal Thrasher,Toxostoma crissale,19775,Crissal Thrasher,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -200,7 +200,7 @@ evegro,Evening Grosbeak,Coccothraustes vespertinus,2272849,"Evening Grosbeak,Eve
 ferhaw,Ferruginous Hawk,Buteo regalis,32934,Ferruginous Hawk,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 fiespa,Field Sparrow,Spizella pusilla,1354612,Field Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 fiscro,Fish Crow,Corvus ossifragus,5147974,Fish Crow,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-flsjay,Florida Scrub-Jay,Aphelocoma coerulescens,9405,"Florida Scrub-Jay,California Scrub-Jay,Island Scrub-Jay,Western Scrub-Jay,Western Scrub-Jay (Coastal),Western Scrub-Jay (Woodhouse's)","-50,-180","90,20",FL,!ZZ,0,0,
+flsjay,Florida Scrub-Jay,Aphelocoma coerulescens,9405,"California Scrub-Jay,Florida Scrub-Jay,Island Scrub-Jay,Western Scrub-Jay,Western Scrub-Jay (Coastal),Western Scrub-Jay (Woodhouse's),Woodhouse's Scrub-Jay","-50,-180","90,20",FL,!ZZ,0,0,
 forter,Forster's Tern,Sterna forsteri,1011024,Forster's Tern,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 foxspa,Fox Sparrow,Passerella iliaca,765577,"Fox Sparrow,Fox Sparrow (Red),Fox Sparrow (Slate-colored),Fox Sparrow (Sooty),Fox Sparrow (Thick-billed)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 fragul,Franklin's Gull,Leucophaeus pipixcan,14636,Franklin's Gull,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -244,7 +244,7 @@ grtgra,Great-tailed Grackle,Quiscalus mexicanus,11481551,Great-tailed Grackle,"-
 grycat,Gray Catbird,Dumetella carolinensis,333166,Gray Catbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 gryfly,Gray Flycatcher,Empidonax wrightii,5871,Gray Flycatcher,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 gryhaw2,Gray Hawk,Buteo plagiatus,688,Gray Hawk,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-gryjay,Canada Jay,Perisoreus canadensis,100000,"Canada Jay,Gray Jay,Gray Jay (Northern),Gray Jay (Pacific),Gray Jay (Rocky Mts.)","-50,-180","90,20",!ZZ,!ZZ,0,0,low
+gryjay,Canada Jay,Perisoreus canadensis,100000,"Canada Jay,Gray Jay,Gray Jay (Northern),Gray Jay (Pacific),Gray Jay (Rocky Mts.)","-50,-180","90,20",!ZZ,!ZZ,0,0,low
 grypar,Gray Partridge,Perdix perdix,189797,Gray Partridge,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 gubter2,Gull-billed Tern,Gelochelidon nilotica,12506,Gull-billed Tern,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 gwfgoo,Greater White-fronted Goose,Anser albifrons,8448065,"Greater White-fronted Goose,Greater White-fronted Goose (Eurasian),Greater White-fronted Goose (Greenland),Greater White-fronted Goose (Western)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
@@ -267,7 +267,7 @@ horgre,Horned Grebe,Podiceps auritus,910787,Horned Grebe,"-50,-180","90,20",!ZZ,
 horlar,Horned Lark,Eremophila alpestris,8645841,"Horned Lark,Horned Lark (Atlas),Horned Lark (Eastern dark Group),Horned Lark (Western pale Group)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 houfin,House Finch,Haemorhous mexicanus,14985770,"House Finch,House Finch (Common)","-50,-180","90,20",!ZZ,!ZZ,0,0,low
 houspa,House Sparrow,Passer domesticus,40810476,House Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-houwre,Northern House Wren,Troglodytes aedon,285710,"Northern House Wren,House Wren,House Wren (Brown-throated),House Wren (Northern)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+houwre,Northern House Wren,Troglodytes aedon,285710,"Northern House Wren,House Wren,House Wren (Brown-throated),House Wren (Northern)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 hrshaw,Harris's Hawk,Parabuteo unicinctus,22536,Harris's Hawk,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 hutvir,Hutton's Vireo,Vireo huttoni,58207,"Hutton's Vireo,Hutton's Vireo (Interior),Hutton's Vireo (Pacific)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 incdov,Inca Dove,Columbina inca,194335,Inca Dove,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -291,8 +291,8 @@ leafly,Least Flycatcher,Empidonax minimus,953,Least Flycatcher,"-50,-180","90,20
 leagre,Least Grebe,Tachybaptus dominicus,14355,Least Grebe,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 leasan,Least Sandpiper,Calidris minutilla,2882858,Least Sandpiper,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
 leater1,Least Tern,Sternula antillarum,853,Least Tern,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-lecspa,LeConte's Sparrow,Ammospiza leconteii,33590,"LeConte's Sparrow,Le Conte's Sparrow","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-lecthr,LeConte's Thrasher,Toxostoma lecontei,1079,"LeConte's Thrasher,Le Conte's Thrasher","-50,-180","90,20",!ZZ,!ZZ,0,0,
+lecspa,LeConte's Sparrow,Ammospiza leconteii,33590,"LeConte's Sparrow,Le Conte's Sparrow","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
+lecthr,LeConte's Thrasher,Toxostoma lecontei,1079,"LeConte's Thrasher,Le Conte's Thrasher","-50,-180","90,20",!ZZ,!ZZ,0,0,
 lepchi,Lesser Prairie-Chicken,Tympanuchus pallidicinctus,1744,Lesser Prairie-Chicken,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 lesgol,Lesser Goldfinch,Spinus psaltria,1408977,Lesser Goldfinch,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 lesnig,Lesser Nighthawk,Chordeiles acutipennis,280,Lesser Nighthawk,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -300,7 +300,7 @@ lessca,Lesser Scaup,Aythya affinis,17728389,Lesser Scaup,"-50,-180","90,20",!ZZ,
 lesyel,Lesser Yellowlegs,Tringa flavipes,183498,Lesser Yellowlegs,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 lewwoo,Lewis's Woodpecker,Melanerpes lewis,41001,Lewis's Woodpecker,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
 libher,Little Blue Heron,Egretta caerulea,434649,Little Blue Heron,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-licpar,Lilac-crowned Amazon,Amazona finschi,3755,"Lilac-crowned Amazon,Lilac-crowned Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
+licpar,Lilac-crowned Amazon,Amazona finschi,3755,"Lilac-crowned Amazon,Lilac-crowned Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
 limpki,Limpkin,Aramus guarauna,26976,Limpkin,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 linspa,Lincoln's Sparrow,Melospiza lincolnii,346086,Lincoln's Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 litgul,Little Gull,Hydrocoloeus minutus,1286,Little Gull,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
@@ -313,7 +313,7 @@ lotduc,Long-tailed Duck,Clangula hyemalis,9960360,Long-tailed Duck,"-50,-180","9
 louwat,Louisiana Waterthrush,Parkesia motacilla,166,Louisiana Waterthrush,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 macwar,MacGillivray's Warbler,Geothlypis tolmiei,145,MacGillivray's Warbler,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 magfri,Magnificent Frigatebird,Fregata magnificens,18806,Magnificent Frigatebird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-maghum1,Rivoli's Hummingbird,Eugenes fulgens,513,"Rivoli's Hummingbird,Magnificent Hummingbird","-50,-180","90,20",!ZZ,!ZZ,0,0,
+maghum1,Rivoli's Hummingbird,Eugenes fulgens,513,"Rivoli's Hummingbird,Magnificant Hummingbird","-50,-180","90,20",!ZZ,!ZZ,0,0,
 magwar,Magnolia Warbler,Setophaga magnolia,703,Magnolia Warbler,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 mallar3,Mallard,Anas platyrhynchos,95472658,"Mallard,Mallard (Domestic type),Mallard (Mexican intergrade),Mallard (Mexican),Mallard (Northern)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 manduc,Mandarin Duck,Aix galericulata,584,Mandarin Duck,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -322,10 +322,10 @@ margod,Marbled Godwit,Limosa fedoa,1379335,Marbled Godwit,"-50,-180","90,20",!ZZ
 marmur,Marbled Murrelet,Brachyramphus marmoratus,86328,Marbled Murrelet,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
 marwre,Marsh Wren,Cistothorus palustris,316993,"Marsh Wren,Marsh Wren (paludicola Group),Marsh Wren (palustris Group)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 masboo,Masked Booby,Sula dactylatra,731,Masked Booby,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-mcclon,Thick-billed Longspur,Rhynchophanes mccownii,50443,"Thick-billed Longspur,McCown's Longspur","-50,-180","90,20",!ZZ,!ZZ,0,0,
+mcclon,Thick-billed Longspur,Rhynchophanes mccownii,50443,"Thick-billed Longspur,McCown's Longspur","-50,-180","90,20",!ZZ,!ZZ,0,0,
 mckbun,McKay's Bunting,Plectrophenax hyperboreus,510,McKay's Bunting,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 merlin,Merlin,Falco columbarius,72288,"Merlin,Merlin (Black),Merlin (Pallid),Merlin (Prairie),Merlin (Taiga)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-mewgul2,Short-billed Gull,Larus brachyrhynchus,10000,"Short-billed Gull,Mew Gull,Mew Gull (American),Mew Gull (European)","-90,-180","90,20",!ZZ,!ZZ,0,0,medium
+mewgul2,Short-billed Gull,Larus brachyrhynchus,10000,"Short-billed Gull,Mew Gull,Mew Gull (American),Mew Gull (European)","-90,-180","90,20",!ZZ,!ZZ,0,0,medium
 mexchi,Mexican Chickadee,Poecile sclateri,1806,Mexican Chickadee,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 mexjay4,Mexican Jay,Aphelocoma wollweberi,92763,Mexican Jay,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 mitpar,Mitred Parakeet,Psittacara mitratus,17232,Mitred Parakeet,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -349,7 +349,7 @@ norcar,Northern Cardinal,Cardinalis cardinalis,10108371,"Northern Cardinal,North
 norfli,Northern Flicker,Colaptes auratus,838547,"Northern Flicker,Northern Flicker (Red-shafted),Northern Flicker (Yellow-shafted),Northern Flicker (intergrade)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 norful,Northern Fulmar,Fulmarus glacialis,51561,"Northern Fulmar,Northern Fulmar (Pacific)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 norgan,Northern Gannet,Morus bassanus,1512656,Northern Gannet,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-norgos,American Goshawk,Astur atricapillus,17785,"American Goshawk,Northern Goshawk,Northern Goshawk (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+norgos,American Goshawk,Astur atricapillus,17785,"American Goshawk,Northern Goshawk,Northern Goshawk (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 norhar2,Northern Harrier,Circus hudsonius,707013,"Northern Harrier,Northern Harrier (American)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 normoc,Northern Mockingbird,Mimus polyglottos,2879045,Northern Mockingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 norpar,Northern Parula,Setophaga americana,8167,Northern Parula,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -367,7 +367,7 @@ oliwar,Olive Warbler,Peucedramus taeniatus,627,Olive Warbler,"-50,-180","90,20",
 orcori,Orchard Oriole,Icterus spurius,291,Orchard Oriole,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 orcwar,Orange-crowned Warbler,Leiothlypis celata,367118,"Orange-crowned Warbler,Orange-crowned Warbler (Gray-headed),Orange-crowned Warbler (celata),Orange-crowned Warbler (lutescens)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 orcwax,Orange-cheeked Waxbill,Estrilda melpoda,136,Orange-cheeked Waxbill,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-orwpar,Orange-winged Amazon,Amazona amazonica,994,"Orange-winged Amazon,Orange-winged Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
+orwpar,Orange-winged Amazon,Amazona amazonica,994,"Orange-winged Amazon,Orange-winged Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
 osprey,Osprey,Pandion haliaetus,202483,"Osprey,Osprey (carolinensis),Osprey (haliaetus)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 ovenbi1,Ovenbird,Seiurus aurocapilla,6095,Ovenbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 pacwre1,Pacific Wren,Troglodytes pacificus,85139,"Pacific Wren,Pacific Wren (pacificus Group),Pacific/Winter Wren,Winter Wren","-109,-180","90,20",!ZZ,!ZZ,0,0,medium
@@ -405,9 +405,9 @@ pyrrhu,Pyrrhuloxia,Cardinalis sinuatus,118806,Pyrrhuloxia,"-50,-180","90,20",!ZZ
 razorb,Razorbill,Alca torda,268151,Razorbill,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 rebmer,Red-breasted Merganser,Mergus serrator,4583899,Red-breasted Merganser,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 rebnut,Red-breasted Nuthatch,Sitta canadensis,1050388,Red-breasted Nuthatch,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
-rebsap,Red-breasted Sapsucker,Sphyrapicus ruber,40253,"Red-breasted Sapsucker,Red-naped Sapsucker,Yellow-bellied Sapsucker,Yellow-bellied/Red-naped Sapsucker,Red-naped/Red-breasted Sapsucker","-115,-180","90,20",!ZZ,!ZZ,0,0,medium
+rebsap,Red-breasted Sapsucker,Sphyrapicus ruber,40253,"Red-breasted Sapsucker,Red-naped Sapsucker,Yellow-bellied Sapsucker,Yellow-bellied/Red-naped Sapsucker,Red-naped/Red-breasted Sapsucker","-115,-180","90,20",!ZZ,!ZZ,0,0,medium
 rebwoo,Red-bellied Woodpecker,Melanerpes carolinus,2379532,Red-bellied Woodpecker,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-recpar,Red-crowned Amazon,Amazona viridigenalis,37730,"Red-crowned Amazon,Red-crowned Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
+recpar,Red-crowned Amazon,Amazona viridigenalis,37730,"Red-crowned Amazon,Red-crowned Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
 recwoo,Red-cockaded Woodpecker,Dryobates borealis,12663,Red-cockaded Woodpecker,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 redcro,Red Crossbill,Loxia curvirostra,378195,"Red Crossbill,Red Crossbill (Altai),Red Crossbill (Appalachian or type 1),Red Crossbill (Douglas-fir or type 4),Red Crossbill (Ponderosa Pine or type 2),Red Crossbill (Sitka Spruce or type 10),Red Crossbill (South Hills or type 9),Red Crossbill (Western Hemlock or type 3)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 redegr,Reddish Egret,Egretta rufescens,34714,Reddish Egret,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -415,14 +415,14 @@ redhea,Redhead,Aythya americana,6908089,Redhead,"-50,-180","90,20",!ZZ,!ZZ,0,0,m
 redjun,Red Junglefowl,Gallus gallus,1426,"Red Junglefowl,Red Junglefowl (Domestic type)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 redkno,Red Knot,Calidris canutus,222143,Red Knot,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 redpha1,Red Phalarope,Phalaropus fulicarius,77781,Red Phalarope,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-redpol1,Redpoll,Acanthis flammea,3151812,"Redpoll,Common Redpoll,Common Redpoll (flammea),Common Redpoll (rostrata),Common/Hoary Redpoll,Hoary Redpoll,Hoary Redpoll (exilipes),Hoary Redpoll (hornemanni)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+redpol1,Redpoll,Acanthis flammea,3151812,"Redpoll,Common Redpoll,Common Redpoll (flammea),Common Redpoll (rostrata),Common/Hoary Redpoll,Hoary Redpoll,Hoary Redpoll (exilipes),Hoary Redpoll (hornemanni)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 refcor,Red-faced Cormorant,Urile urile,877,Red-faced Cormorant,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 rehwoo,Red-headed Woodpecker,Melanerpes erythrocephalus,322573,Red-headed Woodpecker,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-relpar,Red-lored Amazon,Amazona autumnalis,768,"Red-lored Amazon,Red-lored Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
+relpar,Red-lored Amazon,Amazona autumnalis,768,"Red-lored Amazon,Red-lored Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
 rempar,Red-masked Parakeet,Psittacara erythrogenys,7643,Red-masked Parakeet,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 rengre,Red-necked Grebe,Podiceps grisegena,185441,Red-necked Grebe,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 renpha,Red-necked Phalarope,Phalaropus lobatus,1315,Red-necked Phalarope,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-rensap,Red-naped Sapsucker,Sphyrapicus nuchalis,15659,"Red-naped Sapsucker,Red-breasted Sapsucker,Yellow-bellied Sapsucker,Yellow-bellied/Red-naped Sapsucker,Red-naped/Red-breasted Sapsucker","-102,-114.9999","90,20",!ZZ,!ZZ,0,0,medium
+rensap,Red-naped Sapsucker,Sphyrapicus nuchalis,15659,"Red-breasted Sapsucker,Red-naped Sapsucker,Yellow-bellied Sapsucker,Yellow-bellied/Red-naped Sapsucker,Red-naped/Red-breasted Sapsucker","-102,-114.9999","90,20",!ZZ,!ZZ,0,0,medium
 reshaw,Red-shouldered Hawk,Buteo lineatus,440265,"Red-shouldered Hawk,Red-shouldered Hawk (elegans)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 rethaw,Red-tailed Hawk,Buteo jamaicensis,2662811,"Red-tailed Hawk,Red-tailed Hawk (Harlans),Red-tailed Hawk (Kriders),Red-tailed Hawk (abieticola),Red-tailed Hawk (borealis),Red-tailed Hawk (calurus/alascensis),Red-tailed Hawk (fuertesi)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 retloo,Red-throated Loon,Gavia stellata,633610,Red-throated Loon,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
@@ -453,7 +453,7 @@ rudduc,Ruddy Duck,Oxyura jamaicensis,11027830,"Ruddy Duck,Ruddy Duck (Ruddy)","-
 rudtur,Ruddy Turnstone,Arenaria interpres,332099,Ruddy Turnstone,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
 rufgro,Ruffed Grouse,Bonasa umbellus,147221,Ruffed Grouse,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 rufhum,Rufous Hummingbird,Selasphorus rufus,5727,Rufous Hummingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-rugdov,Ruddy Ground Dove,Columbina talpacoti,285,"Ruddy Ground Dove,Ruddy Ground-Dove","-50,-180","90,20",!ZZ,!ZZ,0,0,
+rugdov,Ruddy Ground Dove,Columbina talpacoti,285,"Ruddy Ground Dove,Ruddy Ground-Dove","-50,-180","90,20",!ZZ,!ZZ,0,0,
 rusbla,Rusty Blackbird,Euphagus carolinus,6622140,Rusty Blackbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 ruwspa,Rufous-winged Sparrow,Peucaea carpalis,8021,Rufous-winged Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 saggro,Greater Sage-Grouse,Centrocercus urophasianus,18837,Greater Sage-Grouse,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -479,7 +479,7 @@ shtgro,Sharp-tailed Grouse,Tympanuchus phasianellus,142571,Sharp-tailed Grouse,"
 shthaw,Short-tailed Hawk,Buteo brachyurus,1765,Short-tailed Hawk,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 shtshe,Short-tailed Shearwater,Ardenna tenuirostris,1999,Short-tailed Shearwater,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 shtspa,Nelson's/Saltmarsh Sparrow (Sharp-tailed Sparrow),Ammospiza nelsoni/caudacuta,23830,"Nelson's/Saltmarsh Sparrow (Sharp-tailed Sparrow),Nelson's Sparrow (Atlantic Coast),Nelson's Sparrow,Saltmarsh Sparrow","-50,-180","90,20",!ZZ,!ZZ,0,0,
-skylar,Eurasian Skylark,Alauda arvensis,2010,"Eurasian Skylark,Sky Lark","-50,-180","90,20",!ZZ,!ZZ,0,0,
+skylar,Eurasian Skylark,Alauda arvensis,2010,"Eurasian Skylark,Sky Lark","-50,-180","90,20",!ZZ,!ZZ,0,0,
 smbani,Smooth-billed Ani,Crotophaga ani,13934,Smooth-billed Ani,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 smilon,Smith's Longspur,Calcarius pictus,28599,Smith's Longspur,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
 snakit,Snail Kite,Rostrhamus sociabilis,2846,Snail Kite,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -532,9 +532,9 @@ vichum,Violet-crowned Hummingbird,Ramosomyia violiceps,106,Violet-crowned Hummin
 vigswa,Violet-green Swallow,Tachycineta thalassina,22725,Violet-green Swallow,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 virrai,Virginia Rail,Rallus limicola,88574,"Virginia Rail,Virginia Rail (Virginia)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 wantat1,Wandering Tattler,Tringa incana,2410,Wandering Tattler,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
-warwhe1,Warbling White-eye,Zosterops japonicus,5953,"Warbling White-eye,Japanese White-eye","-50,-180","90,20",!ZZ,!ZZ,0,0,
+warwhe1,Warbling White-eye,Zosterops japonicus,5953,"Warbling White-eye,Japanese White-eye","-50,-180","90,20",!ZZ,!ZZ,0,0,
 wesblu,Western Bluebird,Sialia mexicana,1051433,Western Bluebird,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
-wesfly,Western Flycatcher,Empidonax difficilis,154,"Western Flycatcher,Pacific-slope Flycatcher,Cordilleran Flycatcher,Pacific-slope/Cordilleran Flycatcher (Western Flycatcher)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+wesfly,Western Flycatcher,Empidonax difficilis,154,"Western Flycatcher,Pacific-slope Flycatcher,Cordilleran Flycatcher,Pacific-slope/Cordilleran Flycatcher (Western Flycatcher)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 wesgul,Western Gull,Larus occidentalis,2530105,Western Gull,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 weskin,Western Kingbird,Tyrannus verticalis,2160,Western Kingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 wesmea,Western Meadowlark,Sturnella neglecta,3021513,Western Meadowlark,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -547,7 +547,7 @@ whcspa,White-crowned Sparrow,Zonotrichia leucophrys,10472724,"White-crowned Spar
 whepar2,White-eyed Parakeet,Psittacara leucophthalmus,2349,White-eyed Parakeet,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 whevir,White-eyed Vireo,Vireo griseus,73555,"White-eyed Vireo,White-eyed Vireo (White-eyed)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 whfibi,White-faced Ibis,Plegadis chihi,2379256,White-faced Ibis,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-whfpar1,White-fronted Amazon,Amazona albifrons,184,"White-fronted Amazon,White-fronted Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
+whfpar1,White-fronted Amazon,Amazona albifrons,184,"White-fronted Amazon,White-fronted Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
 whhwoo,White-headed Woodpecker,Dryobates albolarvatus,5680,White-headed Woodpecker,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 whiauk,Whiskered Auklet,Aethia pygmaea,111,Whiskered Auklet,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 whiibi,White Ibis,Eudocimus albus,4049783,White Ibis,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -575,7 +575,7 @@ winwre3,Winter Wren,Troglodytes hiemalis,65250,"Winter Wren,Pacific Wren,Pacific
 wlswar,Wilson's Warbler,Cardellina pusilla,9028,"Wilson's Warbler,Wilson's Warbler (pileolata)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 woewar1,Worm-eating Warbler,Helmitheros vermivorum,197,Worm-eating Warbler,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 wooduc,Wood Duck,Aix sponsa,969598,Wood Duck,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-wooscj2,Woodhouse's Scrub-Jay,Aphelocoma woodhouseii,100000,"Woodhouse's Scrub-Jay,California Scrub-Jay,Florida Scrub-Jay,Island Scrub-Jay,Western Scrub-Jay,Western Scrub-Jay (Coastal),Western Scrub-Jay (Woodhouse's)","-50,-180","90,20","AZ,NV,ID,UT,NM,CO,WY,TX",!ZZ,0,0,
+wooscj2,Woodhouse's Scrub-Jay,Aphelocoma woodhouseii,100000,"California Scrub-Jay,Florida Scrub-Jay,Island Scrub-Jay,Western Scrub-Jay,Western Scrub-Jay (Coastal),Western Scrub-Jay (Woodhouse's),Woodhouse's Scrub-Jay","-50,-180","90,20","AZ,NV,ID,UT,NM,CO,WY,TX",!ZZ,0,0,
 woosto,Wood Stork,Mycteria americana,209920,Wood Stork,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 woothr,Wood Thrush,Hylocichla mustelina,412,Wood Thrush,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 wrenti,Wrentit,Chamaea fasciata,297590,Wrentit,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -585,19 +585,19 @@ y00222,American/Pacific Golden-Plover (Lesser Golden-Plover),Pluvialis dominica/
 y00325,Tropical/Couch's Kingbird,Tyrannus melancholicus/couchii,2334,"Tropical/Couch's Kingbird,Tropical Kingbird,Couch's Kingbird","-50,-180","90,20",!ZZ,!ZZ,0,0,
 y00470,Cackling/Canada Goose,Branta hutchinsii/canadensis,384726,"Cackling/Canada Goose,Cackling Goose,Cackling Goose (Aleutian),Cackling Goose (Richardson's),Cackling Goose (minima),Canada Goose,Canada Goose (moffitti/maxima),Canada Goose (occidentalis/fulva),Canada Goose (parvipes)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 y00475,American Coot,Fulica americana,33403009,American Coot,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-y00477,Common/Wilson's Snipe,Gallinago gallinago/delicata,399152,"Common/Wilson's Snipe,Wilson's Snipe,Common Snipe,Wilson's/Common Snipe","-50,-180","90,20",!ZZ,!ZZ,0,0,
+y00477,Common/Wilson's Snipe,Gallinago gallinago/delicata,399152,"Common/Wilson's Snipe,Wilson's Snipe,Common Snipe,Wilson's/Common Snipe","-50,-180","90,20",!ZZ,!ZZ,0,0,
 y00478,Iceland Gull,Larus glaucoides,254926,"Iceland Gull,Iceland Gull (kumlieni),Thayer's Gull,Thayer's/Iceland Gull","-50,-180","90,20",!ZZ,!ZZ,0,0,low
 y00483,White-winged/Yellow-chevroned Parakeet,Brotogeris versicolurus/chiriri,6248,"White-winged/Yellow-chevroned Parakeet,White-winged Parakeet,Yellow-chevroned Parakeet","-50,-180","90,20",!ZZ,!ZZ,0,0,
 y00678,Crested Caracara,Caracara plancus,60419,Crested Caracara,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-ycnher,Yellow-crowned Night Heron,Nyctanassa violacea,46280,"Yellow-crowned Night Heron,Yellow-crowned Night-Heron,Yellow-crowned Night-Heron (Yellow-crowned)","-50,-180","90,20",!ZZ,!ZZ,0,0,
+ycnher,Yellow-crowned Night Heron,Nyctanassa violacea,46280,"Yellow-crowned Night Heron,Yellow-crowned Night-Heron,Yellow-crowned Night-Heron (Yellow-crowned)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 yebcha,Yellow-breasted Chat,Icteria virens,2625,"Yellow-breasted Chat,Yellow-breasted Chat (auricollis)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 yebloo,Yellow-billed Loon,Gavia adamsii,1362,Yellow-billed Loon,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
 yebmag,Yellow-billed Magpie,Pica nuttalli,260521,Yellow-billed Magpie,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-yebsap,Yellow-bellied Sapsucker,Sphyrapicus varius,405538,"Yellow-bellied Sapsucker,Red-naped Sapsucker,Red-breasted Sapsucker,Yellow-bellied/Red-naped Sapsucker,Red-naped/Red-breasted Sapsucker","-50,-101.9999","90,20",!ZZ,!ZZ,0,0,medium
+yebsap,Yellow-bellied Sapsucker,Sphyrapicus varius,405538,"Red-breasted Sapsucker,Red-naped Sapsucker,Yellow-bellied Sapsucker,Yellow-bellied/Red-naped Sapsucker,Red-naped/Red-breasted Sapsucker","-50,-101.9999","90,20",!ZZ,!ZZ,0,0,medium
 yeejun,Yellow-eyed Junco,Junco phaeonotus,17326,Yellow-eyed Junco,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 yefgul,Yellow-footed Gull,Larus livens,354,Yellow-footed Gull,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 yehbla,Yellow-headed Blackbird,Xanthocephalus xanthocephalus,986240,Yellow-headed Blackbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-yehpar,Yellow-headed Amazon,Amazona oratrix,885,"Yellow-headed Amazon,Yellow-headed Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
+yehpar,Yellow-headed Amazon,Amazona oratrix,885,"Yellow-headed Amazon,Yellow-headed Parrot","-50,-180","90,20",!ZZ,!ZZ,0,0,
 yelrai,Yellow Rail,Coturnicops noveboracensis,897,Yellow Rail,"-50,-180","90,20",!ZZ,!ZZ,0,0,low
 yelwar,Yellow Warbler,Setophaga petechia,3768,"Yellow Warbler,Yellow Warbler (Golden),Yellow Warbler (Mangrove),Yellow Warbler (Northern)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 yerwar,Yellow-rumped Warbler,Setophaga coronata,2147659,"Yellow-rumped Warbler,Yellow-rumped Warbler (Audubon's),Yellow-rumped Warbler (Myrtle x Audubon's),Yellow-rumped Warbler (Myrtle)","-50,-180","90,20",!ZZ,!ZZ,0,0,

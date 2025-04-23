@@ -12,25 +12,25 @@ get_and_filter_count_data <- function(){
   # Encoding(count_table$common_name) <- "UTF-8"
   
   
- test <- c("Woodhouse's Scrub-Jay","California Scrub-Jay","Florida Scrub-Jay",
-           "Island Scrub-Jay","Western Scrub-Jay","Western Scrub-Jay (Coastal)",
-           "Western Scrub-Jay (Woodhouse's)")
- potential_common_names <- stri_enc_toutf8(potential_common_names)
- 
- potential_common_names <- stri_encode(potential_common_names, "ASCII", "UTF-8")
- 
- table(Encoding(count_table$common_name))
- table(Encoding(species_table$ebird_com_name))
- library(stringi)
- stri_enc_mark(count_table$common_name)
- all(stri_enc_isutf8(count_table$common_name))
- stri_enc_mark(species_table$ebird_com_name)
- all(stri_enc_isutf8(species_table$ebird_com_name))
- count_table$common_name <- stri_enc_toutf8(count_table$common_name)
- species_table$ebird_com_name <- stri_enc_toutf8(species_table$ebird_com_name)
+ # test <- c("Woodhouse's Scrub-Jay","California Scrub-Jay","Florida Scrub-Jay",
+ #           "Island Scrub-Jay","Western Scrub-Jay","Western Scrub-Jay (Coastal)",
+ #           "Western Scrub-Jay (Woodhouse's)")
+ # potential_common_names <- stri_enc_toutf8(potential_common_names)
+ # 
+ # potential_common_names <- stri_encode(potential_common_names, "ASCII", "UTF-8")
+ # 
+ # table(Encoding(count_table$common_name))
+ # table(Encoding(species_table$ebird_com_name))
+ # library(stringi)
+ # stri_enc_mark(count_table$common_name)
+ # all(stri_enc_isutf8(count_table$common_name))
+ # stri_enc_mark(species_table$ebird_com_name)
+ # all(stri_enc_isutf8(species_table$ebird_com_name))
+ # count_table$common_name <- stri_enc_toutf8(count_table$common_name)
+ # species_table$ebird_com_name <- stri_enc_toutf8(species_table$ebird_com_name)
   
   count1 <- count_table %>% filter(common_name %in% potential_common_names)
-  count1 <- count_table %>% filter(common_name %in% test)
+  # count1 <- count_table %>% filter(common_name %in% test)
   
   # join count and site tables for zero filling
   dat1 <- site_table %>% left_join(count1, by="join_code") %>% 

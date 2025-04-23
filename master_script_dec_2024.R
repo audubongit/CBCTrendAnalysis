@@ -46,16 +46,17 @@ init1 <- 1
 
 # input three major tables
 setwd(code_dir)
-species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"), encoding="UTF-8") %>% 
-  mutate(ebird_com_name=gsub("Â", "", ebird_com_name)) %>% 
-  mutate(historic_cbc_com_name=gsub("Â", "", historic_cbc_com_name)) %>% 
+species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"),
+                          encoding="latin1") %>% 
+  # mutate(ebird_com_name=gsub("ï¿½", "", ebird_com_name)) %>% 
+  # mutate(historic_cbc_com_name=gsub("ï¿½", "", historic_cbc_com_name)) %>% 
   mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
-count_table <- read.csv("./output/count_table_dec_2024.csv", encoding="UTF-8") %>% 
-  mutate(common_name=gsub("Â", "", common_name))
-site_table <- read.csv("./data/site_table_dec_2024.csv", encoding="UTF-8")
-Encoding(species_table$ebird_com_name) <- "UTF-8"
-Encoding(species_table$historic_cbc_com_name) <- "UTF-8"
-Encoding(count_table$common_name) <- "UTF-8"
+count_table <- read.csv("./output/count_table_dec_2024.csv") # %>% 
+  # mutate(common_name=gsub("ï¿½", "", common_name))
+site_table <- read.csv("./data/site_table_dec_2024.csv")
+# Encoding(species_table$ebird_com_name) <- "UTF-8"
+# Encoding(species_table$historic_cbc_com_name) <- "UTF-8"
+# Encoding(count_table$common_name) <- "UTF-8"
 
 # identify which worker to use
 # worker_number <- 1
@@ -78,7 +79,7 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
-s <- 577
+s <- 121
 for(s in 1:nrow(species_table)){ # start for loop
   
   # define species variables
