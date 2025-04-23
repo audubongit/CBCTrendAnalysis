@@ -48,14 +48,22 @@ init1 <- 1
 setwd(code_dir)
 species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"),
                           encoding="latin1") %>% 
+  # mutate(ebird_com_name=gsub("�", "", ebird_com_name)) %>% 
+  # mutate(historic_cbc_com_name=gsub("�", "", historic_cbc_com_name)) %>% 
   mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
-count_table <- read.csv("./output/count_table_dec_2024.csv", encoding="latin1")
-site_table <- read.csv("./data/site_table_dec_2024.csv", encoding="latin1")
+count_table <- read.csv("./output/count_table_dec_2024.csv") # %>% 
+  # mutate(common_name=gsub("�", "", common_name))
+site_table <- read.csv("./data/site_table_dec_2024.csv")
+# Encoding(species_table$ebird_com_name) <- "UTF-8"
+# Encoding(species_table$historic_cbc_com_name) <- "UTF-8"
+# Encoding(count_table$common_name) <- "UTF-8"
 
-# subset species table
-second_run_spp <- read.csv("./data/second_run_species_dec_2024.csv", encoding="latin1") %>% 
-  mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
-species_table <- species_table %>% filter(ebird_com_name %in% second_run_spp$ebird_com_name)
+# identify which worker to use
+# worker_number <- 1
+# species_table <- species_table %>% arrange(desc(total_counted)) %>%
+#   mutate(worker_id=rep(1:10, length.out=nrow(species_table))) %>%
+#   filter(worker_id==worker_number) %>%
+#   sample_n(size=nrow(.), replace = FALSE)
 
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
