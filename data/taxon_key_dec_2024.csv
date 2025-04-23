@@ -457,7 +457,8 @@ rugdov,Ruddy Ground Dove,Columbina talpacoti,285,"Ruddy Ground Dove,Ruddy Ground
 rusbla,Rusty Blackbird,Euphagus carolinus,6622140,Rusty Blackbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 ruwspa,Rufous-winged Sparrow,Peucaea carpalis,8021,Rufous-winged Sparrow,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 saggro,Greater Sage-Grouse,Centrocercus urophasianus,18837,Greater Sage-Grouse,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-sagspa,Sagebrush/Bell's Sparrow (Sage Sparrow),Artemisiospiza nevadensis/belli,62072,"Sagebrush/Bell's Sparrow (Sage Sparrow),Bell's Sparrow,Bell's Sparrow (belli),Bell's Sparrow (canescens),Sagebrush Sparrow","-50,-180","90,20",!ZZ,!ZZ,0,0,
+sagspa1,Sagebrush Sparrow,Artemisiospiza nevadensis,62072,"Sagebrush/Bell's Sparrow (Sage Sparrow),Bell's Sparrow,Bell's Sparrow (belli),Bell's Sparrow (canescens),Sagebrush Sparrow","-50,-180","90,20",!CA,!ZZ,0,0,
+belspa2,Bell's Sparrow,Artemisiospiza belli,6000,"Sagebrush/Bell's Sparrow (Sage Sparrow),Bell's Sparrow,Bell's Sparrow (belli),Bell's Sparrow (canescens),Sagebrush Sparrow","-50,-180","90,20",CA,!ZZ,0,0,
 sagthr,Sage Thrasher,Oreoscoptes montanus,10546,Sage Thrasher,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 sancra,Sandhill Crane,Antigone canadensis,7588157,"Sandhill Crane,Sandhill Crane (canadensis),Sandhill Crane (pulla)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 sander,Sanderling,Calidris alba,2327707,Sanderling,"-50,-180","90,20",!ZZ,!ZZ,0,0,
