@@ -46,16 +46,23 @@ init1 <- 1
 
 # input three major tables
 setwd(code_dir)
-species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"))
-count_table <- read_csv("./output/count_table_dec_2024.csv")
-site_table <- read_csv("./data/site_table_dec_2024.csv")
+species_table <- read.csv(file.path(code_dir, "/data/taxon_key_dec_2024.csv"), encoding="UTF-8") %>% 
+  mutate(ebird_com_name=gsub("Â", "", ebird_com_name)) %>% 
+  mutate(historic_cbc_com_name=gsub("Â", "", historic_cbc_com_name)) %>% 
+  mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
+count_table <- read.csv("./output/count_table_dec_2024.csv", encoding="UTF-8") %>% 
+  mutate(common_name=gsub("Â", "", common_name))
+site_table <- read.csv("./data/site_table_dec_2024.csv", encoding="UTF-8")
+Encoding(species_table$ebird_com_name) <- "UTF-8"
+Encoding(species_table$historic_cbc_com_name) <- "UTF-8"
+Encoding(count_table$common_name) <- "UTF-8"
 
 # identify which worker to use
-worker_number <- 10
-species_table <- species_table %>% arrange(desc(total_counted)) %>%
-  mutate(worker_id=rep(1:10, length.out=nrow(species_table))) %>%
-  filter(worker_id==worker_number) %>%
-  sample_n(size=nrow(.), replace = FALSE)
+# worker_number <- 1
+# species_table <- species_table %>% arrange(desc(total_counted)) %>%
+#   mutate(worker_id=rep(1:10, length.out=nrow(species_table))) %>%
+#   filter(worker_id==worker_number) %>%
+#   sample_n(size=nrow(.), replace = FALSE)
 
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
@@ -71,9 +78,8 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
-#s <- 46
+s <- 577
 for(s in 1:nrow(species_table)){ # start for loop
-  
   
   # define species variables
   ebird_spp_code_s <- ebird_spp_codes[s]
@@ -88,90 +94,100 @@ for(s in 1:nrow(species_table)){ # start for loop
   add_feeder_s <- add_feeders[s]
   survey_suitability_s <- survey_suitabilities[s]
   
-  
   # define output location
   dir_out1 <- file.path(results_dir, gsub(" ", "_", ebird_com_name_s))
-  dir.create(dir_out1)
+  
+  # skip if the species has been finished
+  if(file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
+                        "_stratum_trend_map.pdf"))){
+    next
+  }
 
-  
-  # set up progress log file ---------------------------------------------------
-  capture.output(print(paste0("Create progress log file. ", Sys.time())),
-                 file=file.path(dir_out1, "analysis_progress_log.txt"), 
-                 append=F)
-  
-  
-  # get data -------------------------------------------------------------------
-  source("functions/get_and_filter_count_data_dec_2024.R")
-  tryCatch({
-    get_and_filter_count_data()
-  }, error=function(e){})
-  
-  print(" "); print(" "); print(" ") 
-  print(paste("got data for", ebird_com_name_s))
-  print(" "); print(" "); print(" ") 
-  
-  
-  # get coverage ---------------------------------------------------------------
-  source("functions/get_survey_coverage_dec_2024.R")
-  tryCatch({
-    get_survey_coverage()
-    capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
-                 file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
-  }, error=function(e){})
-  
-  try(unlink(file.path(ebirdst_data_dir(), "2022", ebird_spp_code_s), 
-             recursive = T), silent=TRUE)
-  
-  print(" "); print(" "); print(" ") 
-  print(paste("tried coverage for", ebird_com_name_s))
-  print(" "); print(" "); print(" ") 
-  
-
-  # set up and run model -------------------------------------------------------
-  source("functions/neighbors_define_dec_2024.R")
-  source("functions/prep_and_fit_model_dec_2024.R")
-  tryCatch({
-    prep_and_fit_model()
-    capture.output(print(paste0("Finished running model. ", Sys.time())),
-                 file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
-  }, error=function(e){})
-  
-  print(" "); print(" "); print(" ") 
-  print(paste("tried model for", ebird_com_name_s))
-  print(" "); print(" "); print(" ") 
-  
-
-  # process model results ------------------------------------------------------
-  source("functions/post_processing_functions_dec_2024.R")
-  source("functions/process_model_results_dec_2024.R")
-  tryCatch({
-    draws1 <- readRDS(file.path(dir_out1, 
-                                paste0("posterior_draws_",
-                                       gsub(" ", "_", ebird_com_name_s),
-                                       "_CBC_spatial_first_diff.rds")))
-    process_model_results()
-    rm(draws1)
-    capture.output(print(paste0("Finished processing results. ", Sys.time())),
-                 file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
-  }, error=function(e){})
-  
-  print(" "); print(" "); print(" ") 
-  print(paste("tried to process results for", ebird_com_name_s))
-  print(" "); print(" "); print(" ") 
-  
-
-  # add quality info -----------------------------------------------------------
-  source("functions/add_estimate_quality_dec_2024.R")
-  tryCatch({
-    add_estimate_quality()
-    capture.output(print(paste0("Finished adding quality. ", Sys.time())),
-                 file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
-  }, error=function(e){})
-  
-  print(" "); print(" "); print(" ") 
-  print(paste("tried to finish for", ebird_com_name_s))
-  print(" "); print(" "); print(" ") 
-  
+  # otherwise continue
+  if(!file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
+                        "_stratum_trend_map.pdf"))){
+    
+    # if not create directory
+    dir.create(dir_out1)
+    
+    # set up progress log file ---------------------------------------------------
+    capture.output(print(paste0("Create progress log file. ", Sys.time())),
+                   file=file.path(dir_out1, "analysis_progress_log.txt"), 
+                   append=F)
+    
+    
+    # get data -------------------------------------------------------------------
+    source("functions/get_and_filter_count_data_dec_2024.R")
+    tryCatch({
+      get_and_filter_count_data()
+    }, error=function(e){})
+    
+    print(" "); print(" "); print(" ") 
+    print(paste("got data for", ebird_com_name_s))
+    print(" "); print(" "); print(" ") 
+    
+    
+    # get coverage ---------------------------------------------------------------
+    source("functions/get_survey_coverage_dec_2024.R")
+    tryCatch({
+      get_survey_coverage()
+      capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
+                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+    }, error=function(e){})
+    
+    try(unlink(file.path(ebirdst_data_dir(), "2022", ebird_spp_code_s), 
+               recursive = T), silent=TRUE)
+    
+    print(" "); print(" "); print(" ") 
+    print(paste("tried coverage for", ebird_com_name_s))
+    print(" "); print(" "); print(" ") 
+    
+    
+    # set up and run model -------------------------------------------------------
+    source("functions/neighbors_define_dec_2024.R")
+    source("functions/prep_and_fit_model_dec_2024.R")
+    tryCatch({
+      prep_and_fit_model()
+      capture.output(print(paste0("Finished running model. ", Sys.time())),
+                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+    }, error=function(e){})
+    
+    print(" "); print(" "); print(" ") 
+    print(paste("tried model for", ebird_com_name_s))
+    print(" "); print(" "); print(" ") 
+    
+    
+    # process model results ------------------------------------------------------
+    source("functions/post_processing_functions_dec_2024.R")
+    source("functions/process_model_results_dec_2024.R")
+    tryCatch({
+      draws1 <- readRDS(file.path(dir_out1, 
+                                  paste0("posterior_draws_",
+                                         gsub(" ", "_", ebird_com_name_s),
+                                         "_CBC_spatial_first_diff.rds")))
+      process_model_results()
+      rm(draws1)
+      capture.output(print(paste0("Finished processing results. ", Sys.time())),
+                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+    }, error=function(e){})
+    
+    print(" "); print(" "); print(" ") 
+    print(paste("tried to process results for", ebird_com_name_s))
+    print(" "); print(" "); print(" ") 
+    
+    
+    # add quality info -----------------------------------------------------------
+    source("functions/add_estimate_quality_dec_2024.R")
+    tryCatch({
+      add_estimate_quality()
+      capture.output(print(paste0("Finished adding quality. ", Sys.time())),
+                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+    }, error=function(e){})
+    
+    print(" "); print(" "); print(" ") 
+    print(paste("tried to finish for", ebird_com_name_s))
+    print(" "); print(" "); print(" ") 
+  }
 
 } # end for loop
 
@@ -179,7 +195,7 @@ for(s in 1:nrow(species_table)){ # start for loop
 # done. that was easy.
 
 
-# # now first change back the temp directory
+# # now change back the temp directory
 # usethis::edit_r_environ()
 # remove something like this: TMPDIR = "C:\Users\tmeehan\Desktop\test_data"
 # .rs.restartR()
