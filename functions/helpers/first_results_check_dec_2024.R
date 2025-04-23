@@ -11,7 +11,7 @@
 library(tidyverse)
 
 # set paths for files and results
-git_data_path <- "D:/Users/tim.meehan/Documents/GitHub/CBCTrendAnalysis"
+git_data_path <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
 results_root_directory <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
 species_list_file <- paste(git_data_path, "data/taxon_key_dec_2024.csv", 
                            sep="/")
@@ -23,7 +23,9 @@ setwd(results_root_directory)
 
 # check results per species ----------------------------------------------------
 # get species file
-species_list <- read.csv(species_list_file)
+species_list <- read.csv(species_list_file) %>% 
+  mutate(ebird_com_name=gsub("Â", "", ebird_com_name)) %>% 
+  mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
 
 # start data frame for results
 res1 <- data.frame(ebird_com_name=species_list[,2], 

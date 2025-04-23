@@ -7,8 +7,30 @@ get_and_filter_count_data <- function(){
   require(tidyverse)
   
   # filter count table based on taxon key
-  potential_common_names <- historic_cbc_com_name_s
-  count1 <- count_table %>% filter(common_name %in% unlist(str_split(potential_common_names, ",")))
+  potential_common_names <- as.character(unlist(str_split(historic_cbc_com_name_s, ",")))
+  # Encoding(potential_common_names) <- "UTF-8"
+  # Encoding(count_table$common_name) <- "UTF-8"
+  
+  
+ test <- c("Woodhouse's Scrub-Jay","California Scrub-Jay","Florida Scrub-Jay",
+           "Island Scrub-Jay","Western Scrub-Jay","Western Scrub-Jay (Coastal)",
+           "Western Scrub-Jay (Woodhouse's)")
+ potential_common_names <- stri_enc_toutf8(potential_common_names)
+ 
+ potential_common_names <- stri_encode(potential_common_names, "ASCII", "UTF-8")
+ 
+ table(Encoding(count_table$common_name))
+ table(Encoding(species_table$ebird_com_name))
+ library(stringi)
+ stri_enc_mark(count_table$common_name)
+ all(stri_enc_isutf8(count_table$common_name))
+ stri_enc_mark(species_table$ebird_com_name)
+ all(stri_enc_isutf8(species_table$ebird_com_name))
+ count_table$common_name <- stri_enc_toutf8(count_table$common_name)
+ species_table$ebird_com_name <- stri_enc_toutf8(species_table$ebird_com_name)
+  
+  count1 <- count_table %>% filter(common_name %in% potential_common_names)
+  count1 <- count_table %>% filter(common_name %in% test)
   
   # join count and site tables for zero filling
   dat1 <- site_table %>% left_join(count1, by="join_code") %>% 
@@ -22,12 +44,28 @@ get_and_filter_count_data <- function(){
   lon_filter <- as.numeric(unlist(str_split(lon_filter_s, pattern=",")))
   lat_filter <- as.numeric(c(str_sub(lat_filter_s, 1, 2), 
                   str_sub(lat_filter_s, 4, nchar(lat_filter_s))))
-  prov_state_filter <- prov_state_filter_s
-  bcr_filter <- bcr_filter_s
+  prov_state_filter <- unlist(str_split(prov_state_filter_s, ","))
+  bcr_filter <- str_replace(unlist(str_split(bcr_filter_s, ",")), "^0+", "")
   dat2 <- dat1 %>% filter(abs(longitude)*-1 <= lon_filter[1] & abs(longitude)*-1 >= lon_filter[2])
   dat2 <- dat2 %>% filter(latitude <= lat_filter[1] & latitude >= lat_filter[2])
-  if(prov_state_filter!="!ZZ") dat2 <- dat2 %>% filter(prov_state %in% prov_state_filter)
-  if(bcr_filter!="!ZZ") dat2 <- dat2 %>% filter(bcr_state %in% bcr_filter)
+  if(prov_state_filter[1]=="!ZZ") {
+    dat2 <- dat2
+  }
+  if(prov_state_filter[1]!="!ZZ" & !grepl("!", prov_state_filter[1])) {
+    dat2 <- dat2 %>% filter(prov_state %in% prov_state_filter)
+  }
+  if(prov_state_filter[1]!="!ZZ" & grepl("!", prov_state_filter[1])) {
+    dat2 <- dat2 %>% filter(!prov_state %in% gsub("!", "", prov_state_filter))
+  }
+  if(bcr_filter[1]=="!ZZ") {
+    dat2 <- dat2
+  }
+  if(bcr_filter[1]!="!ZZ" & !grepl("!", bcr_filter[1])) {
+    dat2 <- dat2 %>% filter(bcr %in% bcr_filter)
+  }
+  if(bcr_filter[1]!="!ZZ" & grepl("!", bcr_filter[1])) {
+    dat2 <- dat2 %>% filter(!bcr %in% gsub("!", "", bcr_filter))
+  }
   
   # create hours column for modeling
   add_nocturnal <- as.numeric(add_nocturnal_s)
