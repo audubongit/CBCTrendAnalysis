@@ -1,6 +1,6 @@
 # # first change the temp directory to something that can handle cmdstan output files
 # usethis::edit_r_environ()
-# add something like this: TMPDIR = "C:\Users\tmeehan\Desktop\test_data"
+# add something like this: TMPDIR = "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
 # .rs.restartR()
 tempdir()
 
@@ -57,6 +57,14 @@ second_run_spp <- read.csv("./data/second_run_species_dec_2024.csv", encoding="l
   mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
 species_table <- species_table %>% filter(ebird_com_name %in% second_run_spp$ebird_com_name)
 
+# identify which worker to use
+worker_number <- 1
+number_workers <- 10
+species_table <- species_table %>% arrange(desc(total_counted)) %>%
+  mutate(worker_id=rep(1:number_workers, length.out=nrow(species_table))) %>%
+  filter(worker_id==worker_number) %>%
+  sample_n(size=nrow(.), replace = FALSE)
+
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
 ebird_com_names <- species_table$ebird_com_name
@@ -69,14 +77,6 @@ bcr_filters <- species_table$bcr_filter
 add_nocturnals <- species_table$add_nocturnal
 add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
-
-# identify which worker to use
-worker_number <- 1
-number_workers <- 10
-species_table <- species_table %>% arrange(desc(total_counted)) %>%
-  mutate(worker_id=rep(1:number_workers, length.out=nrow(species_table))) %>%
-  filter(worker_id==worker_number) %>%
-  sample_n(size=nrow(.), replace = FALSE)
 
 # loop through species
 for(s in 1:nrow(species_table)){ # start for loop

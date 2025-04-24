@@ -183,7 +183,7 @@ eargre,Eared Grebe,Podiceps nigricollis,2181095,Eared Grebe,"-50,-180","90,20",!
 easblu,Eastern Bluebird,Sialia sialis,3205727,"Eastern Bluebird,Eastern Bluebird (Eastern)","-50,-180","90,20",!ZZ,!ZZ,0,0,
 easkin,Eastern Kingbird,Tyrannus tyrannus,340,Eastern Kingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 easmea,Eastern Meadowlark,Sturnella magna,2479690,"Eastern Meadowlark,Eastern Meadowlark (Eastern),Eastern Meadowlark (Lilians)","-50,-180","90,20",!ZZ,!ZZ,0,0,
-easowl1,Eastern Screech-Owl,Megascops asio,222106,"Eastern Screech-Owl,Eastern Screech-Owl (Northern),Western Screech-Owl","-50,-101.9999","90,20",!ZZ,!ZZ,1,0,medium
+easowl1,Eastern Screech-Owl,Megascops asio,222106,"Eastern Screech-Owl,Eastern Screech-Owl (Northern),Western Screech-Owl,Western Screech-Owl (Northern),screech-owl sp.","-50,-101.9999","90,20",!ZZ,!ZZ,1,0,medium
 easpho,Eastern Phoebe,Sayornis phoebe,675474,Eastern Phoebe,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 eastow,Eastern Towhee,Pipilo erythrophthalmus,550944,"Eastern Towhee,Eastern Towhee (Red-eyed),Eastern Towhee (White-eyed),Spotted Towhee,Spotted Towhee (maculatus Group),Spotted Towhee (oregonus Group),Spotted/Eastern Towhee (Rufous-sided Towhee)","-50,-95.9999","90,20",!ZZ,!ZZ,0,0,
 easwpw1,Eastern Whip-poor-will,Antrostomus vociferus,1610,Eastern Whip-poor-will,"-50,-180","90,20",!ZZ,!ZZ,0,0,
@@ -539,7 +539,7 @@ wesfly,Western Flycatcher,Empidonax difficilis,154,"Western Flycatcher,Pacific-s
 wesgul,Western Gull,Larus occidentalis,2530105,Western Gull,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 weskin,Western Kingbird,Tyrannus verticalis,2160,Western Kingbird,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 wesmea,Western Meadowlark,Sturnella neglecta,3021513,Western Meadowlark,"-50,-180","90,20",!ZZ,!ZZ,0,0,
-wesowl1,Western Screech-Owl,Megascops kennicottii,20590,"Western Screech-Owl,Eastern Screech-Owl,Eastern Screech-Owl (Northern)","-102,-180","90,20",!ZZ,!ZZ,1,0,low
+wesowl1,Western Screech-Owl,Megascops kennicottii,20590,"Eastern Screech-Owl,Eastern Screech-Owl (Northern),Western Screech-Owl,Western Screech-Owl (Northern),screech-owl sp.","-102,-180","90,20",!ZZ,!ZZ,1,0,low
 wessan,Western Sandpiper,Calidris mauri,5731200,Western Sandpiper,"-50,-180","90,20",!ZZ,!ZZ,0,0,medium
 westan,Western Tanager,Piranga ludoviciana,3033,Western Tanager,"-50,-180","90,20",!ZZ,!ZZ,0,0,
 whbnut,White-breasted Nuthatch,Sitta carolinensis,3219025,"White-breasted Nuthatch,White-breasted Nuthatch (Eastern),White-breasted Nuthatch (Interior West),White-breasted Nuthatch (Pacific)","-50,-180","90,20",!ZZ,!ZZ,0,0,medium
