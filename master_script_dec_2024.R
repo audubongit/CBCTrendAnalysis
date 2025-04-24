@@ -70,8 +70,15 @@ add_nocturnals <- species_table$add_nocturnal
 add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
+# identify which worker to use
+worker_number <- 1
+number_workers <- 10
+species_table <- species_table %>% arrange(desc(total_counted)) %>%
+  mutate(worker_id=rep(1:number_workers, length.out=nrow(species_table))) %>%
+  filter(worker_id==worker_number) %>%
+  sample_n(size=nrow(.), replace = FALSE)
+
 # loop through species
-s <- 121
 for(s in 1:nrow(species_table)){ # start for loop
   
   # define species variables
