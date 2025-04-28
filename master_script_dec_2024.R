@@ -79,7 +79,7 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
-for(s in 1:nrow(species_table)){ # start for loop
+for(s in 2:nrow(species_table)){ # start for loop
   
   # define species variables
   ebird_spp_code_s <- ebird_spp_codes[s]
@@ -99,13 +99,13 @@ for(s in 1:nrow(species_table)){ # start for loop
   
   # skip if the species has been finished
   if(file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
-                        "_stratum_trend_map.pdf"))){
+                        "_stratum_trend_map1.pdf"))){
     next
   }
 
   # otherwise continue
   if(!file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
-                        "_stratum_trend_map.pdf"))){
+                        "_stratum_trend_map1.pdf"))){
     
     # if not create directory
     dir.create(dir_out1)
