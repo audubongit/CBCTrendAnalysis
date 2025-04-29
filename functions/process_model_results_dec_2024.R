@@ -59,11 +59,17 @@ process_model_results <- function(){
     arrange(stratum)
   
   # get generation length
+  spec <- species
+  if(grepl(" or ", spec)==TRUE){
+    spec <- unlist(str_split(unlist(str_split(spec, " or "))[2], " [(]"))[1]
+  }
   sp_id <- meta_species_taxonomy() %>% 
-    filter(english_name %in% species) %>% pull(species_id)
+    filter(english_name %in% spec) %>% pull(species_id)
   gen_years <- nc_query_table(table="SpeciesLifeHistory") %>%
     filter(subcategDescr=="Average generation length (years)") %>% 
-    filter(speciesID %in% sp_id) %>% pull(value) %>% as.numeric()
+    filter(speciesID %in% sp_id) %>% 
+    filter(is.na(subSpeciesID)) %>%
+    pull(value) %>% as.numeric()
   gen_3_years <- round(gen_years * 3)
   
   # start year for indices

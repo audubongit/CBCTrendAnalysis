@@ -79,8 +79,8 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
-s <- 9
-for(s in 2:nrow(species_table)){ # start for loop
+s <- 1
+for(s in 1:nrow(species_table)){ # start for loop
   
   # define species variables
   ebird_spp_code_s <- ebird_spp_codes[s]
@@ -109,7 +109,7 @@ for(s in 2:nrow(species_table)){ # start for loop
                         "_stratum_trend_map1.pdf"))){
     
     # if not create directory
-    dir.create(dir_out1)
+    # dir.create(dir_out1)
     
     # set up progress log file ---------------------------------------------------
     capture.output(print(paste0("Create progress log file. ", Sys.time())),
@@ -118,14 +118,14 @@ for(s in 2:nrow(species_table)){ # start for loop
     
     
     # get data -------------------------------------------------------------------
-    source("functions/get_and_filter_count_data_dec_2024.R")
-    tryCatch({
-      get_and_filter_count_data()
-    }, error=function(e){})
-    
-    print(" "); print(" "); print(" ") 
-    print(paste("got data for", ebird_com_name_s))
-    print(" "); print(" "); print(" ") 
+    # source("functions/get_and_filter_count_data_dec_2024.R")
+    # tryCatch({
+    #   get_and_filter_count_data()
+    # }, error=function(e){})
+    # 
+    # print(" "); print(" "); print(" ") 
+    # print(paste("got data for", ebird_com_name_s))
+    # print(" "); print(" "); print(" ") 
     
     
     # get coverage ---------------------------------------------------------------
@@ -145,17 +145,17 @@ for(s in 2:nrow(species_table)){ # start for loop
     
     
     # set up and run model -------------------------------------------------------
-    source("functions/neighbors_define_dec_2024.R")
-    source("functions/prep_and_fit_model_dec_2024.R")
-    tryCatch({
-      prep_and_fit_model()
-      capture.output(print(paste0("Finished running model. ", Sys.time())),
-                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
-    }, error=function(e){})
-    
-    print(" "); print(" "); print(" ") 
-    print(paste("tried model for", ebird_com_name_s))
-    print(" "); print(" "); print(" ") 
+    # source("functions/neighbors_define_dec_2024.R")
+    # source("functions/prep_and_fit_model_dec_2024.R")
+    # tryCatch({
+    #   prep_and_fit_model()
+    #   capture.output(print(paste0("Finished running model. ", Sys.time())),
+    #                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+    # }, error=function(e){})
+    # 
+    # print(" "); print(" "); print(" ") 
+    # print(paste("tried model for", ebird_com_name_s))
+    # print(" "); print(" "); print(" ") 
     
     
     # process model results ------------------------------------------------------

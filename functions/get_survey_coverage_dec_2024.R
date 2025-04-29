@@ -12,18 +12,22 @@ get_survey_coverage <- function(){
   
   # set parameters -------------------------------------------------------------
   species <- ebird_com_name_s
-  species_l <- gsub(" ", "_", species)
+  spec <- species
+  if(grepl(" or ", spec)==TRUE){
+    spec <- unlist(str_split(unlist(str_split(spec, " or "))[2], " [(]"))[1]
+  }
+  # species_l <- gsub(" ", "_", species)
   # ----------------------------------------------------------------------------
   
   
   # if there is an ebird range map
-  if(species %in% ebirdst_runs$common_name==T){
+  if(spec %in% ebirdst_runs$common_name==T){
   
     # get species range map and survey sites -------------------------------------
     season1 <- as.numeric(is.na(ebirdst_runs[
-      which(ebirdst_runs$common_name==species), "resident_start"]))
+      which(ebirdst_runs$common_name==spec), "resident_start"]))
     range_season <- ifelse(season1==1, "nonbreeding", "resident")
-    range_info <- grid_range(species, seasonal_range = range_season)
+    range_info <- grid_range(spec, seasonal_range = range_season)
     
     # add study sites
     survey_sites <- read.csv(list.files(path = dir_out1, 
@@ -75,7 +79,7 @@ get_survey_coverage <- function(){
   
   
   # if no ebird range map ----------------------------------------------------------
-  if(species %in% ebirdst_runs$common_name==F){
+  if(spec %in% ebirdst_runs$common_name==F){
     write.csv(data.frame(species = species,
                        proportion_range_surveyed = NA), 
             file.path(dir_out1, paste0(gsub(" ", "_", species), 
