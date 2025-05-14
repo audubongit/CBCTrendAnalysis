@@ -68,9 +68,10 @@ process_model_results <- function(){
   gen_years <- nc_query_table(table="SpeciesLifeHistory") %>%
     filter(subcategDescr=="Average generation length (years)") %>% 
     filter(speciesID %in% sp_id) %>% 
-    filter(is.na(subSpeciesID)) %>%
-    pull(value) %>% as.numeric()
+    #filter(is.na(subSpeciesID)) %>%
+    pull(value) %>% as.numeric() %>% mean(na.rm=T)
   gen_3_years <- round(gen_years * 3)
+  if(is.na(gen_3_years)) {gen_3_years <- 10}
   
   # start year for indices
   year_1 <- min(data_prep$count_year) # first year

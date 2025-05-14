@@ -53,17 +53,17 @@ count_table <- read.csv("./output/count_table_dec_2024.csv", encoding="latin1")
 site_table <- read.csv("./data/site_table_dec_2024.csv", encoding="latin1")
 
 # subset species table
-second_run_spp <- read.csv("./data/second_run_species_dec_2024.csv", encoding="latin1") %>% 
+second_run_spp <- read.csv("./data/second_run_table.csv", encoding="latin1") %>% 
   mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
 species_table <- species_table %>% filter(ebird_com_name %in% second_run_spp$ebird_com_name)
 
 # identify which worker to use
-worker_number <- 1
-number_workers <- 10
-species_table <- species_table %>% arrange(desc(total_counted)) %>%
-  mutate(worker_id=rep(1:number_workers, length.out=nrow(species_table))) %>%
-  filter(worker_id==worker_number) %>%
-  sample_n(size=nrow(.), replace = FALSE)
+# worker_number <- 1
+# number_workers <- 10
+# species_table <- species_table %>% arrange(desc(total_counted)) %>%
+#   mutate(worker_id=rep(1:number_workers, length.out=nrow(species_table))) %>%
+#   filter(worker_id==worker_number) %>%
+#   sample_n(size=nrow(.), replace = FALSE)
 
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
@@ -79,7 +79,6 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
-s <- 1
 for(s in 1:nrow(species_table)){ # start for loop
   
   # define species variables
@@ -98,11 +97,11 @@ for(s in 1:nrow(species_table)){ # start for loop
   # define output location
   dir_out1 <- file.path(results_dir, gsub(" ", "_", ebird_com_name_s))
   
-  # skip if the species has been finished
-  if(file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
-                        "_stratum_trend_map1.pdf"))){
-    next
-  }
+  # # skip if the species has been finished
+  # if(file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
+  #                       "_stratum_trend_map1.pdf"))){
+  #   next
+  # }
 
   # otherwise continue
   if(!file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
