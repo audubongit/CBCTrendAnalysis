@@ -13,7 +13,7 @@ library(bbsBayes2)
 library(tidyverse)
 
 # define some directories
-code_dir <- "D:/Users/tim.meehan/Documents/GitHub/CBCTrendAnalysis"
+code_dir <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
 results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
 # results_dir <- "C:/Users/tmeehan/Desktop/test_data"
 
@@ -58,12 +58,12 @@ second_run_spp <- read.csv("./data/second_run_table.csv", encoding="latin1") %>%
 species_table <- species_table %>% filter(ebird_com_name %in% second_run_spp$ebird_com_name)
 
 # identify which worker to use
-# worker_number <- 1
-# number_workers <- 10
-# species_table <- species_table %>% arrange(desc(total_counted)) %>%
-#   mutate(worker_id=rep(1:number_workers, length.out=nrow(species_table))) %>%
-#   filter(worker_id==worker_number) %>%
-#   sample_n(size=nrow(.), replace = FALSE)
+worker_number <- 1
+number_workers <- 5
+species_table <- species_table %>% arrange(desc(total_counted)) %>%
+  mutate(worker_id=rep(1:number_workers, length.out=nrow(species_table))) %>%
+  filter(worker_id==worker_number) %>%
+  sample_n(size=nrow(.), replace = FALSE)
 
 # define vectors for looping
 ebird_spp_codes <- species_table$ebird_spp_code
@@ -128,33 +128,33 @@ for(s in 1:nrow(species_table)){ # start for loop
     
     
     # get coverage ---------------------------------------------------------------
-    source("functions/get_survey_coverage_dec_2024.R")
-    tryCatch({
-      get_survey_coverage()
-      capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
-                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
-    }, error=function(e){})
-    
-    try(unlink(file.path(ebirdst_data_dir(), "2022", ebird_spp_code_s), 
-               recursive = T), silent=TRUE)
-    
-    print(" "); print(" "); print(" ") 
-    print(paste("tried coverage for", ebird_com_name_s))
-    print(" "); print(" "); print(" ") 
-    
-    
-    # set up and run model -------------------------------------------------------
-    # source("functions/neighbors_define_dec_2024.R")
-    # source("functions/prep_and_fit_model_dec_2024.R")
+    # source("functions/get_survey_coverage_dec_2024.R")
     # tryCatch({
-    #   prep_and_fit_model()
-    #   capture.output(print(paste0("Finished running model. ", Sys.time())),
+    #   get_survey_coverage()
+    #   capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
     #                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
     # }, error=function(e){})
     # 
+    # try(unlink(file.path(ebirdst_data_dir(), "2022", ebird_spp_code_s), 
+    #            recursive = T), silent=TRUE)
+    # 
     # print(" "); print(" "); print(" ") 
-    # print(paste("tried model for", ebird_com_name_s))
+    # print(paste("tried coverage for", ebird_com_name_s))
     # print(" "); print(" "); print(" ") 
+    
+    
+    # set up and run model -------------------------------------------------------
+    source("functions/neighbors_define_dec_2024.R")
+    source("functions/prep_and_fit_model_dec_2024.R")
+    tryCatch({
+      prep_and_fit_model()
+      capture.output(print(paste0("Finished running model. ", Sys.time())),
+                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+    }, error=function(e){})
+
+    print(" "); print(" "); print(" ")
+    print(paste("tried model for", ebird_com_name_s))
+    print(" "); print(" "); print(" ")
     
     
     # process model results ------------------------------------------------------
