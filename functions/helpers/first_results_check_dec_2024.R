@@ -11,7 +11,7 @@
 library(tidyverse)
 
 # set paths for files and results
-git_data_path <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
+git_data_path <- "D:/Users/tim.meehan/Documents/GitHub/CBCTrendAnalysis"
 results_root_directory <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
 species_list_file <- paste(git_data_path, "data/taxon_key_dec_2024.csv", 
                            sep="/")
@@ -42,7 +42,8 @@ res1 <- data.frame(ebird_com_name=species_list[,2],
                    prop_bad_ess = NA,
                    trend_median = NA,
                    trend_q0.025 = NA,
-                   trend_q0.975 = NA)
+                   trend_q0.975 = NA,
+                   ebird_sci_name=gsub(" ", "_", species_list[,3]))
 
 # loop through species
 i <- 1
@@ -167,4 +168,35 @@ write.csv(res1,
 # ------------------------------------------------------------------------------
 
 
+
+
+# compare trends with old ones
+# set up directories
+old_results <- "E:/7_CommunityScience/CBCAnalysisResults/archived_results/cbc_results_v2021.1/analysis_output"
+dir(old_results)
+
+# new results
+res1 <- read.csv(paste0(git_data_path, "/data/", "first_results_check.csv"))
+res2 <- res1 %>% mutate(old_trend_median=NA, old_trend_q0.025=NA, 
+                        old_trend_q0.975=NA)
+# loop through species
+for(i in 1:nrow(res2)){
+  print(paste("trying", res2$ebird_com_name[i]))
+  tryCatch({
+    dir_i <- file.path(old_results, res1$ebird_sci_name[i])
+    file_i <- list.files(dir_i, pattern="aggregate_estimates_summary.csv", 
+                         full.names = T)
+    dat_i <- read.csv(file_i) %>% 
+      filter(parameter=="RegressionTrend1970On", stratum=="USACAN") 
+    res2[i, 18] <- dat_i$estimate_median
+    res2[i, 19] <- dat_i$estimate_lcl
+    res2[i, 20] <- dat_i$estimate_ucl
+    print(paste("finished", res2$ebird_com_name[i]))
+  }, error=function(e){})
+}
+
+# plot it
+names(res2)
+res2 %>% ggplot() +
+  geom_text(aes(x=trend_median, y=old_trend_median, label=ebird_com_name))
 

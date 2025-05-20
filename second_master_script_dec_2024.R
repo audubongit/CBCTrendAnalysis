@@ -57,6 +57,7 @@ second_run_spp <- read.csv("./data/second_run_table.csv", encoding="latin1") %>%
   mutate(ebird_com_name=gsub("/", " or ", ebird_com_name))
 species_table <- species_table %>% filter(ebird_com_name %in% second_run_spp$ebird_com_name)
 
+
 # identify which worker to use
 # worker_number <- 1
 # number_workers <- 10
@@ -79,7 +80,6 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
-s <- 3
 for(s in 1:nrow(species_table)){ # start for loop
   
   # define species variables
@@ -98,18 +98,18 @@ for(s in 1:nrow(species_table)){ # start for loop
   # define output location
   dir_out1 <- file.path(results_dir, gsub(" ", "_", ebird_com_name_s))
   
-  # # skip if the species has been finished
-  # if(file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
-  #                       "_stratum_trend_map1.pdf"))){
-  #   next
-  # }
+  # skip if the species has been finished
+  if(file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s),
+                        "_stratum_trend_map1.pdf"))){
+    next
+  }
 
   # otherwise continue
   if(!file.exists(paste0(dir_out1, "/", gsub(" ", "_", ebird_com_name_s), 
                         "_stratum_trend_map1.pdf"))){
     
     # if not create directory
-    # dir.create(dir_out1)
+    dir.create(dir_out1)
     
     # set up progress log file ---------------------------------------------------
     capture.output(print(paste0("Create progress log file. ", Sys.time())),
@@ -118,30 +118,30 @@ for(s in 1:nrow(species_table)){ # start for loop
     
     
     # get data -------------------------------------------------------------------
-    # source("functions/get_and_filter_count_data_dec_2024.R")
-    # tryCatch({
-    #   get_and_filter_count_data()
-    # }, error=function(e){})
-    # 
-    # print(" "); print(" "); print(" ") 
-    # print(paste("got data for", ebird_com_name_s))
-    # print(" "); print(" "); print(" ") 
+    source("functions/get_and_filter_count_data_dec_2024.R")
+    tryCatch({
+      get_and_filter_count_data()
+    }, error=function(e){})
+
+    print(" "); print(" "); print(" ")
+    print(paste("got data for", ebird_com_name_s))
+    print(" "); print(" "); print(" ")
     
     
-    # # get coverage ---------------------------------------------------------------
-    # source("functions/get_survey_coverage_dec_2024.R")
-    # tryCatch({
-    #   get_survey_coverage()
-    #   capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
-    #                  file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
-    # }, error=function(e){})
-    # 
-    # try(unlink(file.path(ebirdst_data_dir(), "2022", ebird_spp_code_s), 
-    #            recursive = T), silent=TRUE)
-    # 
-    # print(" "); print(" "); print(" ") 
-    # print(paste("tried coverage for", ebird_com_name_s))
-    # print(" "); print(" "); print(" ") 
+    # get coverage ---------------------------------------------------------------
+    source("functions/get_survey_coverage_dec_2024.R")
+    tryCatch({
+      get_survey_coverage()
+      capture.output(print(paste0("Finished getting coverage. ", Sys.time())),
+                     file=file.path(dir_out1, "analysis_progress_log.txt"), append=T)
+    }, error=function(e){})
+
+    try(unlink(file.path(ebirdst_data_dir(), "2022", ebird_spp_code_s),
+               recursive = T), silent=TRUE)
+
+    print(" "); print(" "); print(" ")
+    print(paste("tried coverage for", ebird_com_name_s))
+    print(" "); print(" "); print(" ")
     
     
     # set up and run model -------------------------------------------------------
