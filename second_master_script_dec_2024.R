@@ -13,9 +13,9 @@ library(bbsBayes2)
 library(tidyverse)
 
 # define some directories
-code_dir <- "D:/Users/tim.meehan/Documents/GitHub/CBCTrendAnalysis"
+code_dir <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
 results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
-# results_dir <- "C:/Users/tmeehan/Desktop/test_data"
+results_dir <- "C:/Users/tmeehan/Desktop/test_data"
 
 # set some stratum selection settings
 number_years_per_circle_threshold <- 5 # minimum
