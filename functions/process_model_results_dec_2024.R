@@ -79,6 +79,7 @@ process_model_results <- function(){
   year_N <- max(data_prep$count_year) # last year
   year_10 <- year_N - 10 # includes eleven years data, i.e. inclusive
   year_3g <- year_N - gen_3_years
+  if(year_3g < year_1) year_3g <- year_1
   pif_quant <- c(0.025, 0.05, 0.165, 0.5, 0.835, 0.95, 0.975)
   # ----------------------------------------------------------------------------
   

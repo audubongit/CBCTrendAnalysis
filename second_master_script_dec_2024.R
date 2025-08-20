@@ -13,9 +13,9 @@ library(bbsBayes2)
 library(tidyverse)
 
 # define some directories
-code_dir <- "C:/Users/tmeehan/Documents/GitHub/CBCTrendAnalysis"
-results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
-results_dir <- "C:/Users/tmeehan/Desktop/test_data"
+code_dir <- "D:/Users/tim.meehan/Documents/GitHub/CBCTrendAnalysis"
+results_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0_na"
+# results_dir <- "D:/Users/tim.meehan/Desktop/test_data"
 
 # set some stratum selection settings
 number_years_per_circle_threshold <- 5 # minimum
@@ -80,6 +80,7 @@ add_feeders <- species_table$add_feeder
 survey_suitabilities <- species_table$survey_suitability
 
 # loop through species
+s <- 480
 for(s in 1:nrow(species_table)){ # start for loop
   
   # define species variables

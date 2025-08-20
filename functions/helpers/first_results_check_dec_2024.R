@@ -12,7 +12,7 @@ library(tidyverse)
 
 # set paths for files and results
 git_data_path <- "D:/Users/tim.meehan/Documents/GitHub/CBCTrendAnalysis"
-results_root_directory <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0"
+results_root_directory <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0_na"
 species_list_file <- paste(git_data_path, "data/taxon_key_dec_2024.csv", 
                            sep="/")
 options(stringsAsFactors=F)
