@@ -1,8 +1,6 @@
 
 # setup ------------------------------------------------------------------------
-library(dplyr)
-library(tidyr)
-library(stringr)
+library(tidyverse)
 output_dir <- "D:/Users/tim.meehan/Box/-.Tim.Meehan individual/CBCForWeb"
 trends_dir <- "Z:/7_CommunityScience/CBCAnalysisResults/cbc_results_v2023.0_na"
 code_dir <- "D:/Users/tim.meehan/Documents/GitHub/CBCTrendAnalysis/functions/helpers"
@@ -97,6 +95,20 @@ for(i in 1:length(dir_lst)){
 }, error=function(e){})
 }
 
+# select and rename columns
+out_all_indices <- out_all_indices %>% 
+  select(common_name, scientific_name, 
+         region, region_type, 
+         count_number, year_start, year_end, 
+         annual_index=index_median, 
+         index_lcl=index_q0.025,  
+         index_ucl=index_q0.975,   
+         survey_suitability,
+         range_proportion=range_coverage)
+write.csv(out_all_indices, 
+          file = "C:/Users/tmeehan/Box/-.Tim.Meehan individual/CBCForWeb/na_viewer/cbc_indices_version_2023.0_na_web_download.csv",
+          na = "", row.names=F)
+
 # save
 write.csv(out_all_trends, file.path(output_dir, 
                                     "na_viewer/cbc_trends_version_2023.0_na_web_download.csv"),
@@ -104,7 +116,10 @@ write.csv(out_all_trends, file.path(output_dir,
 write.csv(out_all_indices, file.path(output_dir, 
                                      "na_viewer/cbc_indices_version_2023.0_na_web_download.csv"),
           na="", row.names=F)
+
+
 # ------------------------------------------------------------------------------
+
 
 
 
