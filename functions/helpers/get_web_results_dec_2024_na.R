@@ -96,6 +96,7 @@ for(i in 1:length(dir_lst)){
 }
 
 # select and rename columns
+names(out_all_indices)
 out_all_indices <- out_all_indices %>% 
   select(common_name, scientific_name, 
          region, region_type, 
@@ -106,18 +107,32 @@ out_all_indices <- out_all_indices %>%
          survey_suitability,
          range_proportion=range_coverage)
 write.csv(out_all_indices, 
-          file = "C:/Users/tmeehan/Box/-.Tim.Meehan individual/CBCForWeb/na_viewer/cbc_indices_version_2023.0_na_web_download.csv",
+          file = file.path(output_dir, 
+                           "na_viewer/cbc_indices_version_2023.0_na_web_download.csv"),
           na = "", row.names=F)
 
-# save
-write.csv(out_all_trends, file.path(output_dir, 
-                                    "na_viewer/cbc_trends_version_2023.0_na_web_download.csv"),
-          na="", row.names=F)
-write.csv(out_all_indices, file.path(output_dir, 
-                                     "na_viewer/cbc_indices_version_2023.0_na_web_download.csv"),
-          na="", row.names=F)
-
-
+names(out_all_trends)
+out_all_trends <- out_all_trends %>% 
+  select(scientific_name, 
+         region, region_type, 
+         trend_type,
+         year_start, year_end, 
+         annual_percent_change=trend_median, 
+         annual_change_lcl=trend_q0.025,  
+         annual_change_ucl=trend_q0.975, 
+         total_percent_change=percent_change_median,
+         total_change_lcl=percent_change_q0.025,
+         total_change_ucl=percent_change_q0.975,
+         prob_decline_gt0p=prob_decline,
+         prob_decline_gt30p=prob_decline_gt30,
+         prob_decline_gt50p=prob_decline_gt50,
+         prob_decline_gt70p=prob_decline_gt70,
+         survey_suitability,
+         range_proportion=range_coverage)
+write.csv(out_all_trends, 
+          file = file.path(output_dir, 
+                           "na_viewer/cbc_trends_version_2023.0_na_web_download.csv"),
+          na = "", row.names=F)
 # ------------------------------------------------------------------------------
 
 
