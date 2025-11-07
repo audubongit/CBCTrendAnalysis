@@ -113,7 +113,7 @@ write.csv(out_all_indices,
 
 names(out_all_trends)
 out_all_trends <- out_all_trends %>% 
-  select(scientific_name, 
+  select(common_name, scientific_name, 
          region, region_type, 
          trend_type,
          year_start, year_end, 
